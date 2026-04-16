@@ -30,9 +30,9 @@
       --text-primary: #eef0f6;
       --text-secondary: #7a7f94;
       --text-muted: #3d4258;
-      --accent-mid: #3b5bdb;
-      --accent-glow: rgba(59, 91, 219, 0.12);
-      --accent-glow-strong: rgba(59, 91, 219, 0.22);
+      --accent-mid: #F5A800;
+      --accent-glow: rgba(245, 168, 0, 0.1);
+      --accent-glow-strong: rgba(245, 168, 0, 0.2);
       --border-hairline: rgba(255,255,255,0.06);
       --border-subtle: rgba(255,255,255,0.09);
     }
@@ -70,17 +70,17 @@
     }
     .orb-1 {
       width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(29,46,120,0.35) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(100,65,0,0.32) 0%, transparent 70%);
       top: -200px; left: -150px;
     }
     .orb-2 {
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(45,15,90,0.25) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(80,48,0,0.22) 0%, transparent 70%);
       top: 30vh; right: -200px;
     }
     .orb-3 {
       width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(10,25,80,0.2) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(60,38,0,0.18) 0%, transparent 70%);
       bottom: 10vh; left: 10%;
     }
 
@@ -174,15 +174,15 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(59,91,219,0.1);
-      border: 1px solid rgba(59,91,219,0.25);
+      background: rgba(245,168,0,0.1);
+      border: 1px solid rgba(245,168,0,0.25);
       border-radius: 9999px;
       padding: 6px 16px;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #8fa3f0;
+      color: #F5A800;
       margin-bottom: 32px;
     }
 
@@ -190,7 +190,7 @@
       content: '';
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: #8fa3f0;
+      background: #F5A800;
       animation: pulse 2.5s ease-in-out infinite;
     }
 
@@ -416,15 +416,15 @@
     }
 
     .branch-digital {
-      background: rgba(59,91,219,0.1);
-      border: 1px solid rgba(59,91,219,0.2);
-      color: #8fa3f0;
+      background: rgba(245,168,0,0.1);
+      border: 1px solid rgba(245,168,0,0.2);
+      color: #F5A800;
     }
 
     .branch-ai {
-      background: rgba(120,40,200,0.08);
-      border: 1px solid rgba(120,40,200,0.2);
-      color: #b78af0;
+      background: rgba(245,168,0,0.07);
+      border: 1px solid rgba(245,168,0,0.15);
+      color: #D4900A;
     }
 
     .branch-dot {
@@ -432,8 +432,8 @@
       border-radius: 50%;
     }
 
-    .branch-digital .branch-dot { background: #8fa3f0; }
-    .branch-ai .branch-dot { background: #b78af0; }
+    .branch-digital .branch-dot { background: #F5A800; }
+    .branch-ai .branch-dot { background: #D4900A; }
 
     /* ── DIGITAL PRESENCE BENTO ── */
     .digital-grid {
@@ -484,13 +484,13 @@
     }
 
     .service-icon-digital {
-      background: rgba(59,91,219,0.1);
-      border: 1px solid rgba(59,91,219,0.2);
+      background: rgba(245,168,0,0.1);
+      border: 1px solid rgba(245,168,0,0.2);
     }
 
     .service-icon-ai {
-      background: rgba(120,40,200,0.08);
-      border: 1px solid rgba(120,40,200,0.18);
+      background: rgba(245,168,0,0.08);
+      border: 1px solid rgba(245,168,0,0.18);
     }
 
     .service-title {
@@ -667,7 +667,7 @@
     .cta-glow {
       position: absolute;
       width: 500px; height: 300px;
-      background: radial-gradient(ellipse, rgba(59,91,219,0.15) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(245,168,0,0.12) 0%, transparent 70%);
       top: -80px; left: 50%;
       transform: translateX(-50%);
       pointer-events: none;
@@ -844,7 +844,7 @@
   <!-- ════════════ NAV ════════════ -->
   <nav>
     <div class="nav-pill">
-      <span class="nav-logo">Midnite Systems</span>
+      <img src="logo-transparent.png" alt="Midnite Systems" style="height: 36px; width: auto; object-fit: contain; margin-right: 32px; display: block;" />
       <ul class="nav-links">
         <li><a href="#solutions">Solutions</a></li>
         <li><a href="#why">Why Us</a></li>
@@ -923,7 +923,7 @@
           <div class="bezel-inner">
             <div class="service-number">01</div>
             <div class="service-icon service-icon-digital">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fa3f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
               </svg>
             </div>
@@ -940,7 +940,7 @@
           <div class="bezel-inner">
             <div class="service-number">02</div>
             <div class="service-icon service-icon-digital">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fa3f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
               </svg>
             </div>
@@ -957,7 +957,7 @@
           <div class="bezel-inner">
             <div class="service-number">03</div>
             <div class="service-icon service-icon-digital">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fa3f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
               </svg>
             </div>
@@ -974,7 +974,7 @@
           <div class="bezel-inner">
             <div class="service-number">04</div>
             <div class="service-icon service-icon-digital">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fa3f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/>
               </svg>
             </div>
@@ -991,7 +991,7 @@
           <div class="bezel-inner">
             <div class="service-number">05</div>
             <div class="service-icon service-icon-digital">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fa3f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
               </svg>
             </div>
@@ -1016,12 +1016,12 @@
         <div class="ai-grid">
 
           <!-- Card: Marketing AI Agent (full width) -->
-          <div class="ai-card-wide bezel-outer reveal reveal-delay-1" style="background: rgba(120,40,200,0.04);">
-            <div class="bezel-inner" style="background: linear-gradient(135deg, #110d1f 0%, #0d0f1c 100%); border-radius: 22px; padding: 40px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+          <div class="ai-card-wide bezel-outer reveal reveal-delay-1" style="background: rgba(245,168,0,0.04);">
+            <div class="bezel-inner" style="background: linear-gradient(135deg, #130f06 0%, #0d0f0a 100%); border-radius: 22px; padding: 40px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
               <div>
                 <div class="service-number">AI — 01</div>
                 <div class="service-icon service-icon-ai">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b78af0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/>
                   </svg>
                 </div>
@@ -1031,15 +1031,15 @@
                 </p>
               </div>
               <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div style="background: rgba(120,40,200,0.08); border: 1px solid rgba(120,40,200,0.15); border-radius: 14px; padding: 16px 20px;">
+                <div style="background: rgba(245,168,0,0.08); border: 1px solid rgba(245,168,0,0.15); border-radius: 14px; padding: 16px 20px;">
                   <div style="font-size: 11px; color: #7a7f94; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Capability</div>
                   <div style="font-size: 14px; color: #eef0f6; font-weight: 500;">Autonomous campaign generation</div>
                 </div>
-                <div style="background: rgba(120,40,200,0.08); border: 1px solid rgba(120,40,200,0.15); border-radius: 14px; padding: 16px 20px;">
+                <div style="background: rgba(245,168,0,0.08); border: 1px solid rgba(245,168,0,0.15); border-radius: 14px; padding: 16px 20px;">
                   <div style="font-size: 11px; color: #7a7f94; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Capability</div>
                   <div style="font-size: 14px; color: #eef0f6; font-weight: 500;">Real-time audience intelligence</div>
                 </div>
-                <div style="background: rgba(120,40,200,0.08); border: 1px solid rgba(120,40,200,0.15); border-radius: 14px; padding: 16px 20px;">
+                <div style="background: rgba(245,168,0,0.08); border: 1px solid rgba(245,168,0,0.15); border-radius: 14px; padding: 16px 20px;">
                   <div style="font-size: 11px; color: #7a7f94; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Capability</div>
                   <div style="font-size: 14px; color: #eef0f6; font-weight: 500;">Cross-channel optimization</div>
                 </div>
@@ -1052,7 +1052,7 @@
             <div class="bezel-inner">
               <div class="service-number">AI — 02</div>
               <div class="service-icon service-icon-ai">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b78af0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                 </svg>
               </div>
@@ -1060,7 +1060,7 @@
               <p class="service-desc">
                 Qualifies leads, nurtures prospects through your pipeline, schedules discovery calls, and generates tailored proposals — operating 24/7 with enterprise-grade precision.
               </p>
-              <span class="card-tag" style="border-color: rgba(120,40,200,0.2); color: #6d4f9a;">Revenue Operations</span>
+              <span class="card-tag" style="border-color: rgba(245,168,0,0.2); color: #9A7000;">Revenue Operations</span>
             </div>
           </div>
 
@@ -1069,7 +1069,7 @@
             <div class="bezel-inner">
               <div class="service-number">AI — 03</div>
               <div class="service-icon service-icon-ai">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b78af0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
               </div>
@@ -1077,7 +1077,7 @@
               <p class="service-desc">
                 Automates bookkeeping, invoice processing, reconciliation, and financial reporting. Delivers real-time financial visibility with zero manual overhead.
               </p>
-              <span class="card-tag" style="border-color: rgba(120,40,200,0.2); color: #6d4f9a;">Financial Intelligence</span>
+              <span class="card-tag" style="border-color: rgba(245,168,0,0.2); color: #9A7000;">Financial Intelligence</span>
             </div>
           </div>
 
@@ -1087,7 +1087,7 @@
               <div style="flex: 1; min-width: 240px;">
                 <div class="service-number">AI — 04</div>
                 <div class="service-icon service-icon-ai">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b78af0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
                   </svg>
                 </div>
@@ -1098,19 +1098,19 @@
               </div>
               <div style="flex: 1; min-width: 240px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 14px 16px; text-align: center;">
-                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #b78af0;">∞</div>
+                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #F5A800;">∞</div>
                   <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Scalable</div>
                 </div>
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 14px 16px; text-align: center;">
-                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #b78af0;">24/7</div>
+                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #F5A800;">24/7</div>
                   <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Always on</div>
                 </div>
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 14px 16px; text-align: center;">
-                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #b78af0;">0ms</div>
+                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #F5A800;">0ms</div>
                   <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Latency</div>
                 </div>
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 14px 16px; text-align: center;">
-                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #b78af0;">100%</div>
+                  <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: #F5A800;">100%</div>
                   <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Automated</div>
                 </div>
               </div>
@@ -1223,7 +1223,7 @@
   <!-- ════════════ FOOTER ════════════ -->
   <footer>
     <div class="footer-inner">
-      <span class="footer-logo">Midnite Systems</span>
+      <img src="logo-transparent.png" alt="Midnite Systems" style="height: 28px; width: auto; object-fit: contain; display: block;" />
       <ul class="footer-links">
         <li><a href="#solutions">Digital Presence</a></li>
         <li><a href="#solutions">AI Solutions</a></li>
