@@ -36,25 +36,6 @@ export function RevealObserver() {
       const branches = Array.from(
         journey.querySelectorAll<HTMLElement>(".journey-branch"),
       );
-      const trunk = journey.querySelector<SVGPathElement>(".journey-trunk");
-      const splitLeft = journey.querySelector<SVGPathElement>(
-        ".journey-split-left",
-      );
-      const splitRight = journey.querySelector<SVGPathElement>(
-        ".journey-split-right",
-      );
-
-      if (trunk) {
-        journey.style.setProperty(
-          "--trunk-length",
-          trunk.getTotalLength().toString(),
-        );
-      }
-      const branchLen = Math.max(
-        splitLeft?.getTotalLength() ?? 0,
-        splitRight?.getTotalLength() ?? 0,
-      );
-      journey.style.setProperty("--branch-length", branchLen.toString());
 
       let journeyRaf: number | null = null;
 
@@ -65,22 +46,10 @@ export function RevealObserver() {
         const s = -rect.top;
         const progress = Math.max(
           0,
-          Math.min(1, (s + vh / 2) / rect.height),
+          Math.min(1, (s + vh * 0.85) / rect.height),
         );
 
-        const trunkProgress = Math.max(0, Math.min(1, progress / 0.2));
-        const branchProgress = Math.max(
-          0,
-          Math.min(1, (progress - 0.2) / 0.2),
-        );
-        journey.style.setProperty(
-          "--trunk-progress",
-          trunkProgress.toString(),
-        );
-        journey.style.setProperty(
-          "--branch-progress",
-          branchProgress.toString(),
-        );
+        journey.style.setProperty("--trunk-progress", progress.toString());
 
         branches.forEach((branch) => {
           const node = branch.querySelector<HTMLElement>(".branch-node");
@@ -88,10 +57,10 @@ export function RevealObserver() {
           const nodeRect = node.getBoundingClientRect();
           const nodeMid = nodeRect.top + nodeRect.height / 2;
 
-          const active = nodeMid < vh * 0.7 && nodeMid > -nodeRect.height;
+          const active = nodeMid < vh * 0.75 && nodeMid > -nodeRect.height;
           branch.dataset.active = active ? "true" : "false";
 
-          const servicesVisible = nodeMid < vh * 0.55;
+          const servicesVisible = nodeMid < vh * 0.6;
           branch.dataset.servicesVisible = servicesVisible
             ? "true"
             : "false";
@@ -114,17 +83,6 @@ export function RevealObserver() {
         if (journeyRaf !== null) cancelAnimationFrame(journeyRaf);
       });
     }
-
-    const heroLines = document.querySelectorAll<HTMLElement>(
-      ".hero-h1 .type-line",
-    );
-    heroLines.forEach((line) => {
-      const onEnd = () => {
-        line.style.clipPath = "none";
-      };
-      line.addEventListener("animationend", onEnd, { once: true });
-      cleanups.push(() => line.removeEventListener("animationend", onEnd));
-    });
 
     return () => {
       observer.disconnect();
