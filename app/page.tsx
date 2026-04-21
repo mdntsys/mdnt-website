@@ -9,74 +9,83 @@ export default function Home() {
       <div className="orb orb-3" />
 
       <nav>
-        <div className="nav-pill">
-          <Image
-            src="/mdnt-favicon.png"
-            alt="Midnite Systems"
-            width={36}
-            height={36}
-            priority
-            className="nav-logo-img"
-          />
-          <ul className="nav-links">
-            <li>
-              <a href="#solutions">Solutions</a>
-            </li>
-            <li>
-              <a href="#consulting">Consulting</a>
-            </li>
-            <li>
-              <a href="#why">Why</a>
-            </li>
-            <li>
-              <a href="#cta">Contact</a>
-            </li>
-          </ul>
-          <a href="#cta" className="nav-cta">
-            Get Started
-          </a>
-        </div>
+        <Image
+          src="/mdnt-favicon.png"
+          alt="Midnite Systems"
+          width={32}
+          height={32}
+          priority
+          className="nav-logo-img"
+        />
+        <ul className="nav-links">
+          <li>
+            <a href="#solutions">Solutions</a>
+          </li>
+          <li>
+            <a href="#consulting">Consulting</a>
+          </li>
+          <li>
+            <a href="#why">Why Us</a>
+          </li>
+          <li>
+            <a href="#cta">Contact</a>
+          </li>
+          <li>
+            <a href="#cta">Get Started</a>
+          </li>
+        </ul>
       </nav>
 
       <main>
         <section id="hero">
-          <div className="hero-grid" />
+          <video
+            className="hero-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source src="/hero-bg.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-video-overlay" />
+          <div className="hero-grain" />
 
-          <span className="hero-eyebrow">AI Deployment Agency</span>
-
-          <h1 className="hero-h1">
-            Custom AI
-            <br />
-            Deployment for
-            <br />
-            <em>growing</em> businesses
-          </h1>
-
-          <p className="hero-sub">
-            We integrate AI inside your organization the way a great operator
-            would. Replace repetitive workflows bleeding your team, or upgrade
-            the people you already have with the tools they&apos;ve been
-            missing.
-          </p>
-
-          <div className="hero-actions">
-            <a href="#solutions" className="btn-primary">
-              Explore Solutions
-              <span className="icon-wrap">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path
-                    d="M2.5 6h7M6.5 3l3 3-3 3"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+          <div className="hero-content">
+            <h1 className="hero-h1">
+              <span className="type-line">Custom AI</span>
+              <span className="type-line">Deployment for</span>
+              <span className="type-line">
+                <em>growing</em> businesses
               </span>
-            </a>
-            <a href="#why" className="btn-ghost">
-              How we work
-            </a>
+            </h1>
+
+            <p className="hero-sub">
+              We integrate AI inside your organization the way a great
+              operator would. Replace repetitive workflows bleeding your
+              team, or upgrade the people you already have with the tools
+              they&apos;ve been missing.
+            </p>
+
+            <div className="hero-actions">
+              <a href="#solutions" className="btn-primary">
+                Explore Solutions
+                <span className="icon-wrap">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M2.5 6h7M6.5 3l3 3-3 3"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <a href="#why" className="btn-ghost">
+                How we work
+              </a>
+            </div>
           </div>
 
           <div className="scroll-hint">
@@ -90,29 +99,64 @@ export default function Home() {
         <section id="solutions">
           <div className="section-inner">
             <div className="solutions-header reveal">
-              <div>
-                <span className="section-eyebrow">Our Solutions</span>
-                <h2 className="solutions-h2">
-                  Two paths.
-                  <br />
-                  One <em>deployment</em> partner.
-                </h2>
-              </div>
-              <p className="solutions-desc reveal reveal-delay-1">
+              <span className="section-eyebrow">Our Solutions</span>
+              <h2 className="solutions-h2">
+                Two paths.
+                <br />
+                One <em>deployment</em> partner.
+              </h2>
+              <p className="solutions-desc">
                 Two deployment paths, engineered to compound. Replace the
                 workflows slowing your operation, or empower the team you
                 already have.
               </p>
             </div>
 
-            <div className="branches-grid">
-              <div className="branch-column reveal reveal-delay-1">
-                <div className="branch-label branch-replace">
-                  <span className="branch-dot" />
-                  Replacing Personnel
+            <div className="journey">
+              <svg
+                className="journey-svg"
+                viewBox="0 0 1040 360"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+              >
+                <path
+                  className="journey-path journey-trunk"
+                  d="M520,0 L520,160"
+                  fill="none"
+                  stroke="#f5a800"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  className="journey-path journey-split-left"
+                  d="M520,160 L200,350"
+                  fill="none"
+                  stroke="#f5a800"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  className="journey-path journey-split-right"
+                  d="M520,160 L840,350"
+                  fill="none"
+                  stroke="#f5a800"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+
+              <div className="journey-splits">
+
+              <div className="journey-branch" data-branch="replace">
+                <div className="branch-node">
+                  <div className="branch-node-meta">
+                    <span className="branch-dot" />
+                    <span className="branch-node-kicker">Branch 01</span>
+                  </div>
+                  <h3 className="branch-node-title">Replacing Personnel</h3>
                 </div>
 
-                <div className="branch-cards">
+                <div className="branch-services">
                   <div className="bezel-outer">
                     <div className="bezel-inner">
                       <div className="service-number">01</div>
@@ -131,9 +175,9 @@ export default function Home() {
                           <polyline points="21 3 21 9 15 9" />
                         </svg>
                       </div>
-                      <h3 className="service-title">
+                      <h4 className="service-title">
                         Agentic &amp; Automated Solutions
-                      </h3>
+                      </h4>
                       <p className="service-desc">
                         Autonomous agents that handle repetitive work end to
                         end, from lead qualification to data entry, so your
@@ -161,9 +205,9 @@ export default function Home() {
                           <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
                         </svg>
                       </div>
-                      <h3 className="service-title">
+                      <h4 className="service-title">
                         Build Your Dream Employee
-                      </h3>
+                      </h4>
                       <p className="service-desc">
                         Custom-trained AI agents built around the exact role
                         you&apos;d hire for. A tireless specialist that
@@ -175,16 +219,19 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="branch-column reveal reveal-delay-2">
-                <div className="branch-label branch-empower">
-                  <span className="branch-dot" />
-                  Empowering Personnel
+              <div className="journey-branch" data-branch="empower">
+                <div className="branch-node">
+                  <div className="branch-node-meta">
+                    <span className="branch-dot" />
+                    <span className="branch-node-kicker">Branch 02</span>
+                  </div>
+                  <h3 className="branch-node-title">Empowering Personnel</h3>
                 </div>
 
-                <div className="branch-cards">
+                <div className="branch-services">
                   <div className="bezel-outer">
                     <div className="bezel-inner">
-                      <div className="service-number">03</div>
+                      <div className="service-number">01</div>
                       <div className="service-icon service-icon-empower">
                         <svg
                           width="20"
@@ -202,11 +249,11 @@ export default function Home() {
                           <rect x="3" y="14" width="7" height="7" />
                         </svg>
                       </div>
-                      <h3 className="service-title">Customized Platforms</h3>
+                      <h4 className="service-title">Customized Platforms</h4>
                       <p className="service-desc">
                         Internal tools built around how your team actually
-                        works, not bent to fit off-the-shelf SaaS. The software
-                        your operation has been asking for.
+                        works, not bent to fit off-the-shelf SaaS. The
+                        software your operation has been asking for.
                       </p>
                       <span className="card-tag">Internal Tools</span>
                     </div>
@@ -214,7 +261,7 @@ export default function Home() {
 
                   <div className="bezel-outer">
                     <div className="bezel-inner">
-                      <div className="service-number">04</div>
+                      <div className="service-number">02</div>
                       <div className="service-icon service-icon-empower">
                         <svg
                           width="20"
@@ -231,18 +278,19 @@ export default function Home() {
                           <line x1="18" y1="20" x2="18" y2="4" />
                         </svg>
                       </div>
-                      <h3 className="service-title">
+                      <h4 className="service-title">
                         Customized Reporting Solutions
-                      </h3>
+                      </h4>
                       <p className="service-desc">
                         Dashboards and reports engineered around the numbers
-                        you actually make decisions on. Real-time clarity, zero
-                        spreadsheet archaeology.
+                        you actually make decisions on. Real-time clarity,
+                        zero spreadsheet archaeology.
                       </p>
                       <span className="card-tag">Analytics</span>
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -382,7 +430,7 @@ export default function Home() {
                 <h2 className="cta-h2">
                   Ready to build
                   <br />
-                  <em>at midnight?</em>
+                  at <em>Midnite?</em>
                 </h2>
                 <p className="cta-sub">
                   Tell us where your business is headed. We&apos;ll deploy the
