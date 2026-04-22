@@ -1,19 +1,17 @@
-import Image from "next/image";
-import { RevealObserver } from "./reveal-observer";
-import { SmoothScroll } from "./smooth-scroll";
+import type { Metadata } from "next";
 import { HeroType } from "./hero-type";
 import { HeroNav } from "./hero-nav";
 import { HeroParallax } from "./hero-parallax";
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
 export default function Home() {
   return (
     <>
-      <SmoothScroll />
       <HeroType />
       <HeroParallax />
-      <div className="orb orb-1" />
-      <div className="orb orb-2" />
-      <div className="orb orb-3" />
 
       <HeroNav />
 
@@ -26,11 +24,13 @@ export default function Home() {
             loop
             playsInline
             preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
           >
             <source src="/hero-bg.mp4" type="video/mp4" />
           </video>
-          <div className="hero-video-overlay" />
-          <div className="hero-grain" />
+          <div className="hero-video-overlay" aria-hidden="true" />
+          <div className="hero-grain" aria-hidden="true" />
 
           <div className="hero-content">
             <h1 className="hero-h1">
@@ -69,13 +69,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="scroll-hint">
+          <div className="scroll-hint" aria-hidden="true">
             <div className="scroll-line" />
             <span>Scroll</span>
           </div>
         </section>
 
-        <div className="divider" />
 
         <section id="solutions">
           <div className="section-inner">
@@ -157,7 +156,7 @@ export default function Home() {
                           so your team never touches the busywork again.
                         </p>
                       </div>
-                      <a href="#" className="btn-ghost card-cta">
+                      <a href="#cta" className="btn-ghost card-cta">
                         Learn more
                         <span aria-hidden="true">→</span>
                       </a>
@@ -215,7 +214,7 @@ export default function Home() {
                           churns.
                         </p>
                       </div>
-                      <a href="#" className="btn-ghost card-cta">
+                      <a href="#cta" className="btn-ghost card-cta">
                         Learn more
                         <span aria-hidden="true">→</span>
                       </a>
@@ -290,7 +289,7 @@ export default function Home() {
                           sprawl.
                         </p>
                       </div>
-                      <a href="#" className="btn-ghost card-cta">
+                      <a href="#cta" className="btn-ghost card-cta">
                         Learn more
                         <span aria-hidden="true">→</span>
                       </a>
@@ -347,7 +346,7 @@ export default function Home() {
                           clarity, zero spreadsheet archaeology.
                         </p>
                       </div>
-                      <a href="#" className="btn-ghost card-cta">
+                      <a href="#cta" className="btn-ghost card-cta">
                         Learn more
                         <span aria-hidden="true">→</span>
                       </a>
@@ -413,7 +412,6 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="divider" />
 
         <section id="why">
           <div className="section-inner">
@@ -494,7 +492,6 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="divider" />
 
         <section id="cta">
           <div className="section-inner">
@@ -533,7 +530,10 @@ export default function Home() {
                       </svg>
                     </span>
                   </a>
-                  <a href="tel:+1" className="btn-ghost">
+                  <a
+                    href="mailto:nic@midnitesystems.com?subject=Schedule%20a%20call"
+                    className="btn-ghost"
+                  >
                     Schedule a Call
                   </a>
                 </div>
@@ -542,35 +542,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <footer>
-        <div className="footer-inner">
-          <Image
-            src="/mdnt-favicon.png"
-            alt="Midnite Systems"
-            width={28}
-            height={28}
-            className="footer-logo-img"
-          />
-          <ul className="footer-links">
-            <li>
-              <a href="#solutions">Solutions</a>
-            </li>
-            <li>
-              <a href="#consulting">Consulting</a>
-            </li>
-            <li>
-              <a href="#why">Why</a>
-            </li>
-            <li>
-              <a href="#cta">Contact</a>
-            </li>
-          </ul>
-          <span className="footer-copy">© 2026 Midnite Systems</span>
-        </div>
-      </footer>
-
-      <RevealObserver />
     </>
   );
 }

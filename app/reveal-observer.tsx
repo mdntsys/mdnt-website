@@ -16,7 +16,7 @@ export function RevealObserver() {
     );
 
     document
-      .querySelectorAll(".reveal, .reveal-left, .reveal-right")
+      .querySelectorAll(".reveal")
       .forEach((el) => observer.observe(el));
 
     const cards = document.querySelectorAll<HTMLElement>(".bezel-outer");

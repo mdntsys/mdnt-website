@@ -1,0 +1,36 @@
+# Midnite Systems
+
+> AI deployment agency helping growing businesses maximize modern technology. Midnite Systems replaces repetitive workflows with agentic automation and empowers teams with custom platforms and reporting.
+
+## What Midnite Systems does
+
+Midnite Systems deploys AI inside operating businesses the way a great operator would. Engagements fall on two paths:
+
+### Path 1: Replacing personnel (the task layer and the role layer)
+
+- Workflow automation. Autonomous agents handle end-to-end workflows, from lead qualification to data entry, so internal teams stop moving data between systems.
+- Custom AI roles. Specialist agents trained around a specific role a business would otherwise hire for. They onboard in days, follow the playbook, and do not churn.
+
+### Path 2: Empowering personnel (the workspace layer and the visibility layer)
+
+- Custom platforms. Internal tools designed around how a team actually works, replacing sprawls of disconnected SaaS subscriptions and load-bearing spreadsheets.
+- Decision intelligence. Dashboards and reports engineered around the metrics a team actually makes decisions on, pulling data from multiple systems into a single real-time view.
+
+### Additional service
+
+- AI consulting. Strategy sessions that audit workflows, identify the highest-leverage AI opportunities, and map a deployment plan the business can act on with or without Midnite Systems.
+
+## How Midnite Systems works
+
+- Full-stack ownership from strategy through deployment and optimization. One partner, no handoff friction.
+- AI-native by default. Intelligence designed in as a first-class citizen at every layer, not bolted onto existing workflows.
+- Engineered for the real complexity of running a growing business: security, reliability, and scale without enterprise bloat.
+
+## Who Midnite Systems is for
+
+Operating businesses and modern teams that want agentic automation and custom internal software delivered by a single partner.
+
+## Contact
+
+- Email: nic@midnitesystems.com
+- Website: https://midnitesystems.com
