@@ -2,57 +2,48 @@
 
 import { useEffect } from "react";
 
+const PARALLAX_FACTOR = 0.35;
+
 export function HeroParallax() {
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
-
+    const grid = document.querySelector<HTMLElement>(".hero-grid");
     const hero = document.querySelector<HTMLElement>("#hero");
-    if (!hero) return;
+    if (!grid || !hero) return;
 
-    let rafId: number | null = null;
-    let latestX = 0;
-    let latestY = 0;
-    let latestRect: DOMRect | null = null;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduced) return;
 
-    const apply = () => {
-      rafId = null;
-      if (!latestRect) return;
-      const x = latestX - latestRect.left;
-      const y = latestY - latestRect.top;
-      const nx = (x / latestRect.width) * 2 - 1;
-      const ny = (y / latestRect.height) * 2 - 1;
-      hero.style.setProperty("--hero-mx", `${x}px`);
-      hero.style.setProperty("--hero-my", `${y}px`);
-      hero.style.setProperty("--hero-tx", nx.toFixed(4));
-      hero.style.setProperty("--hero-ty", ny.toFixed(4));
-      hero.style.setProperty("--hero-active", "1");
+    let raf = 0;
+    let lastScroll = -1;
+
+    const update = () => {
+      raf = 0;
+      const scrollY = window.scrollY;
+      if (scrollY === lastScroll) return;
+      lastScroll = scrollY;
+
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      if (scrollY > heroBottom) return;
+
+      const offset = scrollY * PARALLAX_FACTOR;
+      grid.style.setProperty("--grid-offset", `${offset}px`);
     };
 
-    const onMove = (e: PointerEvent) => {
-      latestX = e.clientX;
-      latestY = e.clientY;
-      latestRect = hero.getBoundingClientRect();
-      if (rafId === null) rafId = requestAnimationFrame(apply);
+    const onScroll = () => {
+      if (raf !== 0) return;
+      raf = requestAnimationFrame(update);
     };
 
-    const onLeave = () => {
-      hero.style.setProperty("--hero-tx", "0");
-      hero.style.setProperty("--hero-ty", "0");
-      hero.style.setProperty("--hero-active", "0");
-    };
-
-    hero.addEventListener("pointermove", onMove);
-    hero.addEventListener("pointerleave", onLeave);
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
 
     return () => {
-      hero.removeEventListener("pointermove", onMove);
-      hero.removeEventListener("pointerleave", onLeave);
-      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf !== 0) cancelAnimationFrame(raf);
     };
   }, []);
 

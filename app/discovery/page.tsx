@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import ReactDOM from "react-dom";
 import { CalEmbed } from "./cal-embed";
+import { HeroNav } from "../hero-nav";
 
 export const metadata: Metadata = {
   title: "Book a Discovery Call",
@@ -26,25 +25,10 @@ export default function Discovery() {
   ReactDOM.preload("https://app.cal.com/embed/embed.js", { as: "script" });
 
   return (
-    <main className="discovery">
-      <div className="discovery-topbar">
-        <Link
-          href="/"
-          className="discovery-logo-link"
-          aria-label="Midnite Systems home"
-        >
-          <Image
-            src="/mdnt-favicon.png"
-            alt="Midnite Systems"
-            width={36}
-            height={36}
-            priority
-            className="discovery-logo-img"
-          />
-        </Link>
-      </div>
-
-      <div className="section-inner discovery-inner">
+    <>
+      <HeroNav />
+      <main className="discovery">
+        <div className="section-inner discovery-inner">
         <div className="discovery-header">
           <span className="section-eyebrow">Discovery Call</span>
           <h1 className="discovery-h1">
@@ -77,6 +61,7 @@ export default function Discovery() {
           .
         </p>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

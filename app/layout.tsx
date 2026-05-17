@@ -29,9 +29,9 @@ const geistMono = Geist_Mono({
 
 const siteUrl = "https://midnitesystems.com";
 const siteName = "Midnite Systems";
-const siteTitle = "Midnite Systems, AI Deployment Agency";
+const siteTitle = "Midnite Systems, AI Consultancy & Deployment Agency";
 const siteDescription =
-  "Midnite Systems is an AI deployment agency helping growing businesses maximize modern technology. We replace repetitive workflows with agentic automation and empower teams with custom platforms and reporting.";
+  "Midnite Systems is an AI consultancy and deployment agency for growing businesses. We map your operation, build the AI that fits, and run it for you as a managed service.";
 const ogImage = "/mdnt-favicon.png";
 
 export const metadata: Metadata = {
@@ -47,13 +47,15 @@ export const metadata: Metadata = {
   publisher: siteName,
   category: "technology",
   keywords: [
+    "AI consultancy",
+    "AI consulting agency",
+    "managed AI service",
     "AI deployment agency",
+    "AI roadmap",
+    "custom AI employees",
+    "custom AI workspace",
+    "AI strategy",
     "agentic automation",
-    "workflow automation",
-    "custom AI agents",
-    "internal tools",
-    "decision intelligence",
-    "AI consulting",
     "B2B AI",
   ],
   icons: {
@@ -127,6 +129,46 @@ const structuredData = {
       description: siteDescription,
       publisher: { "@id": `${siteUrl}/#organization` },
       inLanguage: "en-US",
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service-roadmap`,
+      name: "The Roadmap",
+      provider: { "@id": `${siteUrl}/#organization` },
+      description:
+        "Audit of your operation, identification of where AI genuinely fits, and a deployment plan you can act on with us or on your own.",
+      url: `${siteUrl}/#consultancy`,
+      serviceType: "AI consulting",
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service-custom-employee-build`,
+      name: "Custom Employee Build",
+      provider: { "@id": `${siteUrl}/#organization` },
+      description:
+        "Bespoke AI employees deployed into your operation: junior, specialist, or executive. Tuned to how your business actually runs.",
+      url: `${siteUrl}/solutions/custom-employee-build`,
+      serviceType: "AI deployment",
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service-custom-workspace-build`,
+      name: "Custom Workspace Build",
+      provider: { "@id": `${siteUrl}/#organization` },
+      description:
+        "A client-specific UI or app layer connected to the platform. Your own internal portal where your team and AI employees work side by side.",
+      url: `${siteUrl}/solutions/custom-workspace-build`,
+      serviceType: "AI deployment",
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service-ai-strategy-support`,
+      name: "AI Strategy Support",
+      provider: { "@id": `${siteUrl}/#organization` },
+      description:
+        "Ongoing strategic consulting beyond the Roadmap. Available as dedicated hours or on-demand.",
+      url: `${siteUrl}/solutions/ai-strategy-support`,
+      serviceType: "AI consulting",
     },
   ],
 };

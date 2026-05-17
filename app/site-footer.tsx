@@ -14,16 +14,22 @@ export function SiteFooter() {
         />
         <ul className="footer-links">
           <li>
-            <Link href="/#solutions">Solutions</Link>
+            <Link href="/#process">Process</Link>
           </li>
           <li>
-            <Link href="/#consulting">Consulting</Link>
+            <Link href="/solutions">Solutions</Link>
           </li>
           <li>
-            <Link href="/#why">Why</Link>
+            <Link href="/#about">About</Link>
           </li>
           <li>
-            <Link href="/#cta">Contact</Link>
+            <Link href="/#case-studies">Case Studies</Link>
+          </li>
+          <li>
+            <Link href="/discovery">Discovery</Link>
+          </li>
+          <li>
+            <a href="mailto:nic@midnitesystems.com">Contact</a>
           </li>
         </ul>
         <span className="footer-copy">© 2026 Midnite Systems</span>
