@@ -4,6 +4,7 @@ import { HeroNav } from "./hero-nav";
 import { HeroParallax } from "./hero-parallax";
 import { TrustBand } from "./trust-band";
 import { ProcessJourney } from "./process-journey";
+import { SolutionsCards } from "./solutions-cards";
 import { CaseStudy } from "./case-study";
 
 export const metadata: Metadata = {
@@ -62,9 +63,7 @@ export default function Home() {
                   How we work
                 </a>
               </div>
-            </div>
 
-            <div className="hero-trust">
               <TrustBand />
             </div>
           </div>
@@ -89,130 +88,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="solutions-grid">
-              <div className="bezel-outer reveal reveal-delay-1">
-                <div className="bezel-inner">
-                  <div className="card-header">
-                    <div className="service-icon service-icon-replace">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#F5A800"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <circle cx="12" cy="8" r="4" />
-                        <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
-                      </svg>
-                    </div>
-                    <span className="card-eyebrow">
-                      The <em>role</em> layer
-                    </span>
-                  </div>
-                  <h3 className="service-title">
-                    Custom <em>Employee</em> Build
-                  </h3>
-                  <p className="card-solution">
-                    Bespoke AI employees deployed across your operation:
-                    admin, sales, accounting, ops. Junior to executive,
-                    full-time or half-time.
-                  </p>
-                  <Link
-                    href="/solutions/custom-employee-build"
-                    className="btn-ghost card-cta"
-                  >
-                    Learn more
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
-
-              <div className="bezel-outer reveal reveal-delay-2">
-                <div className="bezel-inner">
-                  <div className="card-header">
-                    <div className="service-icon service-icon-empower">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#D4900A"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="3" y="3" width="7" height="7" />
-                        <rect x="14" y="3" width="7" height="7" />
-                        <rect x="14" y="14" width="7" height="7" />
-                        <rect x="3" y="14" width="7" height="7" />
-                      </svg>
-                    </div>
-                    <span className="card-eyebrow">
-                      The <em>workspace</em> layer
-                    </span>
-                  </div>
-                  <h3 className="service-title">
-                    Custom <em>Workspace</em> Build
-                  </h3>
-                  <p className="card-solution">
-                    A client-specific UI or internal portal connected to
-                    the platform. Your team and AI employees working in
-                    one unified place.
-                  </p>
-                  <Link
-                    href="/solutions/custom-workspace-build"
-                    className="btn-ghost card-cta"
-                  >
-                    Learn more
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
-
-              <div className="bezel-outer reveal reveal-delay-3">
-                <div className="bezel-inner">
-                  <div className="card-header">
-                    <div className="service-icon service-icon-replace">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#F5A800"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" />
-                        <path d="M9 18h6" />
-                        <path d="M10 22h4" />
-                      </svg>
-                    </div>
-                    <span className="card-eyebrow">
-                      The <em>strategy</em> layer
-                    </span>
-                  </div>
-                  <h3 className="service-title">
-                    AI <em>Strategy</em> Support
-                  </h3>
-                  <p className="card-solution">
-                    Ongoing strategic consulting beyond the Roadmap.
-                    Dedicated hours or on-demand. Steady guidance as your
-                    business and AI evolve.
-                  </p>
-                  <Link
-                    href="/solutions/ai-strategy-support"
-                    className="btn-ghost card-cta"
-                  >
-                    Learn more
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <SolutionsCards />
           </div>
         </section>
 
@@ -223,9 +99,6 @@ export default function Home() {
               <div className="about-photo-placeholder">
                 <span className="about-photo-label">
                   Founder photo placeholder
-                </span>
-                <span className="about-photo-sub">
-                  Replace /public/founders.jpg
                 </span>
               </div>
             </div>

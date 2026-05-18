@@ -51,19 +51,12 @@ const MOBILE_NODES = [
 // effectively at the start, midpoint, and end.
 const STEP_THRESHOLDS = [0.04, 0.5, 0.96];
 
-const DURATION_MS = 2800;
-
-function easeOutCubic(t: number) {
-  return 1 - Math.pow(1 - t, 3);
-}
-
 export function ProcessJourney() {
   const sectionRef = useRef<HTMLElement>(null);
   const desktopPathRef = useRef<SVGPathElement>(null);
   const mobilePathRef = useRef<SVGPathElement>(null);
 
   const [progress, setProgress] = useState(0);
-  const [played, setPlayed] = useState(false);
   const [desktopLength, setDesktopLength] = useState(1000);
   const [mobileLength, setMobileLength] = useState(100);
 
@@ -80,23 +73,6 @@ export function ProcessJourney() {
     const node = sectionRef.current;
     if (!node) return;
 
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting && !played) {
-            setPlayed(true);
-            break;
-          }
-        }
-      },
-      { threshold: 0.25 },
-    );
-    obs.observe(node);
-    return () => obs.disconnect();
-  }, [played]);
-
-  useEffect(() => {
-    if (!played) return;
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -106,15 +82,35 @@ export function ProcessJourney() {
     }
 
     let raf = 0;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / DURATION_MS);
-      setProgress(easeOutCubic(t));
-      if (t < 1) raf = requestAnimationFrame(tick);
+
+    // Map progress 0 → 1 to "section center moves from viewport bottom
+    // to viewport top". Progress = 0.5 exactly when the section is
+    // centered in the viewport, so the animation is at its midpoint
+    // when the user is reading it head-on.
+    const update = () => {
+      raf = 0;
+      const rect = node.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const sectionCenter = rect.top + rect.height / 2;
+      const raw = (vh - sectionCenter) / vh;
+      setProgress(Math.max(0, Math.min(1, raw)));
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [played]);
+
+    const onScroll = () => {
+      if (raf !== 0) return;
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf !== 0) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // Compute the leading dot's position on each path.
   const desktopDot = (() => {
