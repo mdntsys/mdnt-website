@@ -2,25 +2,81 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { HeroNav } from "../../hero-nav";
+import { pageOpenGraph } from "../../seo";
 
 export const metadata: Metadata = {
   title: "DSI Transportation",
   description:
     "How Midnite cut DSI Transportation's monthly operating overhead from $22,500 to $10,000 by replacing 16 recurring tasks with AI employees running 7 days a week.",
   alternates: { canonical: "/case-studies/dsi-transportation" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "DSI Transportation | Midnite Systems Case Study",
     description:
       "$22,500/mo to $10,000/mo. 16 tasks replaced. 7 days a week.",
     url: "/case-studies/dsi-transportation",
     type: "article",
-  },
+  }),
+};
+
+const siteUrl = "https://midnitesystems.com";
+
+const caseStudyStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${siteUrl}/case-studies/dsi-transportation#article`,
+      headline:
+        "How Midnite cut DSI Transportation's monthly operating overhead from $22,500 to $10,000",
+      description:
+        "16 recurring tasks replaced with AI employees running 7 days a week. $12,500 saved per month, $150,000 annualized, first live agent in 4 weeks.",
+      author: { "@id": `${siteUrl}/#organization` },
+      publisher: { "@id": `${siteUrl}/#organization` },
+      about: {
+        "@type": "Organization",
+        name: "DSI Transportation",
+        url: "https://dsitransportation.com",
+      },
+      mainEntityOfPage: `${siteUrl}/case-studies/dsi-transportation`,
+      image: `${siteUrl}/dsi-logo.png`,
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Case studies",
+          item: `${siteUrl}/#case-studies`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "DSI Transportation",
+          item: `${siteUrl}/case-studies/dsi-transportation`,
+        },
+      ],
+    },
+  ],
 };
 
 export default function DSITransportation() {
   return (
     <>
       <HeroNav />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(caseStudyStructuredData),
+        }}
+      />
 
       <main className="page-shell">
         <section className="page-hero">
@@ -97,8 +153,8 @@ export default function DSITransportation() {
                 </p>
                 <p className="detail-p">
                   None of it required judgment their people weren&apos;t
-                  capable of. All of it required *time* their people
-                  didn&apos;t have to give.
+                  capable of. All of it required <em>time</em> their
+                  people didn&apos;t have to give.
                 </p>
               </div>
 
@@ -141,6 +197,16 @@ export default function DSITransportation() {
                 improvement. They get the outcome, we handle the
                 operating layer. The work runs through the same hours
                 their humans don&apos;t.
+              </p>
+              <p className="detail-p">
+                This engagement is a{" "}
+                <Link
+                  href="/solutions/custom-employee-build"
+                  className="case-copy-link"
+                >
+                  Custom Employee Build
+                </Link>
+                , run as a managed service.
               </p>
               <div className="detail-metrics">
                 <div className="detail-metric">

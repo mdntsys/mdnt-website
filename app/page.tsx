@@ -11,6 +11,43 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+const FAQS = [
+  {
+    q: "What does Midnite Systems actually do?",
+    a: "Midnite Systems is an AI consultancy and deployment agency for growing businesses. We map your operation with the Roadmap, build the AI that genuinely fits, then run it for you as a managed service. The work takes three forms: AI employees deployed into your operation, custom workspaces where your team and AI work together, and ongoing strategy support.",
+  },
+  {
+    q: "What is the Roadmap?",
+    a: "The Roadmap is how every engagement starts. We audit your operation, identify where AI genuinely fits, and hand you a written plan: prioritized opportunities, build-vs-buy guidance, sequencing, and budget framing. It is yours to act on with us or on your own.",
+  },
+  {
+    q: "Do AI employees replace our team?",
+    a: "They replace tasks, not judgment. The work we take over is recurring, rule-shaped, and below the level your people should be operating at. At DSI Transportation, sixteen recurring tasks moved to AI employees, and the people who had been doing them got their week back.",
+  },
+  {
+    q: "What if off-the-shelf software already solves our problem?",
+    a: "Then we tell you to buy it. The Roadmap recommends whatever fits, including SaaS we don't sell. We only recommend a custom build where custom clearly wins.",
+  },
+  {
+    q: "How fast can something be live?",
+    a: "At DSI Transportation, the first live AI employee was running four weeks after the Roadmap. Timelines depend on scope, but we build in weeks, not quarters.",
+  },
+  {
+    q: "Who runs what you build?",
+    a: "We do. Every deployment sits on the managed operating layer we run: monitoring, retraining, and continuous improvement. You get the outcome, we handle the upkeep.",
+  },
+];
+
+const faqStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function Home() {
   return (
     <>
@@ -132,10 +169,7 @@ export default function Home() {
                   Every approach we suggest has been deployed somewhere
                   already, by us, at our own risk first.
                 </p>
-                <p className="about-byline">
-                  {/* TODO_NAME: swap once founders are confirmed */}
-                  Nic Perez, CEO &nbsp;·&nbsp; {"{CTO Name}"}, CTO
-                </p>
+                <p className="about-byline">Nic Perez, CEO</p>
               </div>
 
               <ul className="about-pillars reveal reveal-delay-3">
@@ -173,145 +207,49 @@ export default function Home() {
                 the <em>claims</em>.
               </h2>
               <p className="section-lead">
-                One featured engagement, then three more across the
-                solution set.
+                One engagement, documented end to end. Real client, real
+                numbers, still running today.
               </p>
             </div>
           </div>
 
           <CaseStudy />
+        </section>
 
+
+        <section id="faq">
           <div className="section-inner">
-            <div className="case-grid-compact">
-              <Link
-                href="/case-studies/vellum-creative"
-                className="case-compact reveal reveal-delay-1"
-              >
-                <div className="case-compact-inner">
-                  <div className="case-compact-head">
-                    <span className="case-compact-eyebrow">
-                      Custom Employee Build
-                    </span>
-                    <span className="case-compact-arrow" aria-hidden="true">
-                      →
-                    </span>
-                  </div>
-                  <h3 className="case-compact-title">Vellum Creative</h3>
-                  <p className="case-compact-blurb">
-                    Deployed an AI account coordinator across 12 retainer
-                    accounts. Replaces the admin layer between senior
-                    strategists and clients.
-                  </p>
-                  <div className="case-compact-metrics">
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">180</span>
-                      <span className="case-compact-unit">hrs/mo</span>
-                    </div>
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">$7,200</span>
-                      <span className="case-compact-unit">/mo saved</span>
-                    </div>
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">+30%</span>
-                      <span className="case-compact-unit">retainer load</span>
-                    </div>
-                  </div>
-                  <blockquote className="case-compact-quote">
-                    &ldquo;Our strategists stopped writing status emails
-                    at 11 PM. That alone paid for it.&rdquo;
-                    <cite>Maria Sandoval, Director of Operations</cite>
-                  </blockquote>
-                </div>
-              </Link>
-
-              <Link
-                href="/case-studies/stratacore-holdings"
-                className="case-compact reveal reveal-delay-2"
-              >
-                <div className="case-compact-inner">
-                  <div className="case-compact-head">
-                    <span className="case-compact-eyebrow">
-                      Custom Workspace Build
-                    </span>
-                    <span className="case-compact-arrow" aria-hidden="true">
-                      →
-                    </span>
-                  </div>
-                  <h3 className="case-compact-title">
-                    Stratacore Holdings
-                  </h3>
-                  <p className="case-compact-blurb">
-                    One internal workspace covering 3 portfolio
-                    companies. AI agents and human team in the same UI.
-                    Replaced a stack of disconnected SaaS tools.
-                  </p>
-                  <div className="case-compact-metrics">
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">$4,400</span>
-                      <span className="case-compact-unit">/mo cut</span>
-                    </div>
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">12</span>
-                      <span className="case-compact-unit">hrs/wk CFO</span>
-                    </div>
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">1</span>
-                      <span className="case-compact-unit">unified portal</span>
-                    </div>
-                  </div>
-                  <blockquote className="case-compact-quote">
-                    &ldquo;I went from running three companies in five
-                    tabs to running three companies in one.&rdquo;
-                    <cite>James Chen, CFO</cite>
-                  </blockquote>
-                </div>
-              </Link>
-
-              <Link
-                href="/case-studies/pemberton-industrial"
-                className="case-compact reveal reveal-delay-3"
-              >
-                <div className="case-compact-inner">
-                  <div className="case-compact-head">
-                    <span className="case-compact-eyebrow">
-                      AI Strategy Support
-                    </span>
-                    <span className="case-compact-arrow" aria-hidden="true">
-                      →
-                    </span>
-                  </div>
-                  <h3 className="case-compact-title">
-                    Pemberton Industrial
-                  </h3>
-                  <p className="case-compact-blurb">
-                    Monthly strategy retainer through a year of AI vendor
-                    evaluations. Buy-vs-build calls, due diligence,
-                    sequencing.
-                  </p>
-                  <div className="case-compact-metrics">
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">$180k</span>
-                      <span className="case-compact-unit">SaaS avoided</span>
-                    </div>
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">3</span>
-                      <span className="case-compact-unit">priority builds</span>
-                    </div>
-                    <div className="case-compact-metric">
-                      <span className="case-compact-num">2</span>
-                      <span className="case-compact-unit">commissioned</span>
-                    </div>
-                  </div>
-                  <blockquote className="case-compact-quote">
-                    &ldquo;Midnite told us <em>not</em> to buy three of
-                    the tools we were pricing. That&apos;s the meeting
-                    that won me.&rdquo;
-                    <cite>Linda Patel, COO</cite>
-                  </blockquote>
-                </div>
-              </Link>
+            <div className="solutions-header reveal">
+              <span className="section-eyebrow">Common questions</span>
+              <h2 className="solutions-h2">
+                Asked before
+                <br />
+                every <em>engagement</em>.
+              </h2>
+              <p className="section-lead">
+                The questions that come up on nearly every discovery
+                call, answered straight.
+              </p>
             </div>
+
+            <dl className="faq-list">
+              {FAQS.map((f, i) => (
+                <div
+                  key={f.q}
+                  className={`faq-item reveal reveal-delay-${Math.min(i + 1, 5)}`}
+                >
+                  <dt className="faq-q">{f.q}</dt>
+                  <dd className="faq-a">{f.a}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(faqStructuredData),
+            }}
+          />
         </section>
 
 

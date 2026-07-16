@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroNav } from "../../hero-nav";
+import { pageOpenGraph } from "../../seo";
 
 export const metadata: Metadata = {
   title: "Custom Employee Build",
   description:
     "Bespoke AI employees deployed into your operation: junior, specialist, or executive. Drawn from our task library and tuned to how your business actually runs.",
   alternates: { canonical: "/solutions/custom-employee-build" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Custom Employee Build | Midnite Systems",
     description:
       "Bespoke AI employees deployed into your operation. Drawn from our task library and tuned to how your business actually runs.",
     url: "/solutions/custom-employee-build",
-    type: "website",
-  },
+  }),
 };
 
 export default function CustomEmployeeBuild() {
@@ -107,6 +107,17 @@ export default function CustomEmployeeBuild() {
                 workflow, and deploy a working employee against a defined
                 success metric. From there it joins the managed operating
                 layer alongside anything else we run for you.
+              </p>
+              <p className="detail-p">
+                This is the engagement behind our{" "}
+                <Link
+                  href="/case-studies/dsi-transportation"
+                  className="case-copy-link"
+                >
+                  DSI Transportation case study
+                </Link>
+                : sixteen recurring tasks replaced, $12,500 a month
+                saved, first live agent in four weeks.
               </p>
               <Link href="/discovery" className="btn-primary">
                 Book a discovery call

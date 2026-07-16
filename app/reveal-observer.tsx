@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function RevealObserver() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -35,7 +38,9 @@ export function RevealObserver() {
       observer.disconnect();
       cleanups.forEach((fn) => fn());
     };
-  }, []);
+    // Re-bind after client-side navigation: new pages render fresh
+    // .reveal and .bezel-outer elements the first mount never saw.
+  }, [pathname]);
 
   return null;
 }

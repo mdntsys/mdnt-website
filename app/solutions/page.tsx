@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroNav } from "../hero-nav";
+import { pageOpenGraph } from "../seo";
 
 export const metadata: Metadata = {
   title: "Solutions",
   description:
     "Three ways Midnite Systems deploys AI inside your business: Custom Employee Build, Custom Workspace Build, and AI Strategy Support. All sit on top of the Roadmap.",
   alternates: { canonical: "/solutions" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Solutions | Midnite Systems",
     description:
       "Three ways Midnite Systems deploys AI inside your business: Custom Employee Build, Custom Workspace Build, and AI Strategy Support.",
     url: "/solutions",
-    type: "website",
-  },
+  }),
 };
 
 export default function SolutionsIndex() {
@@ -201,7 +201,7 @@ export default function SolutionsIndex() {
                       </svg>
                     </span>
                   </Link>
-                  <Link href="/#consultancy" className="btn-ghost">
+                  <Link href="/#process" className="btn-ghost">
                     How we work
                   </Link>
                 </div>

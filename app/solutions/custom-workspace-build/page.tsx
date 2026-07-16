@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroNav } from "../../hero-nav";
+import { pageOpenGraph } from "../../seo";
 
 export const metadata: Metadata = {
   title: "Custom Workspace Build",
   description:
     "A client-specific UI or app layer connected to the platform. Your own internal portal where your team and AI employees work side by side.",
   alternates: { canonical: "/solutions/custom-workspace-build" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Custom Workspace Build | Midnite Systems",
     description:
       "Your own internal portal where your team and AI employees work side by side.",
     url: "/solutions/custom-workspace-build",
-    type: "website",
-  },
+  }),
 };
 
 export default function CustomWorkspaceBuild() {

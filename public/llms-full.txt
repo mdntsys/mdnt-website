@@ -1,0 +1,73 @@
+# Midnite Systems (full content)
+
+> Midnite Systems (MDNT) is an AI consultancy and deployment agency for growing businesses. We map your operation with the Roadmap, build the AI that genuinely fits, then run it for you as a managed service.
+
+Site: https://midnitesystems.com
+Contact: nic@midnitesystems.com (Nic Perez, CEO)
+
+## Who we are
+
+Operators first, consultants second. MDNT was built by people running operating businesses, not by advisors theorizing about them. We're a small team running operating businesses of our own: the infrastructure, methodology, and AI employees we deploy at client companies are the same ones we use to run our own work, every day. Our recommendations come from doing, not from reading. Every approach we suggest has been deployed somewhere already, by us, at our own risk first.
+
+Three principles: we operate before we advise, we use what we recommend, we deploy what we build.
+
+## How we work: the Roadmap
+
+Every engagement starts with the Roadmap, in three steps:
+
+1. Roadmap. We map your operation, identify where AI genuinely fits, and recommend the right approach for each opportunity, including SaaS we don't sell.
+2. Recommend. You get a written plan: prioritized opportunities, build-vs-buy guidance, sequencing, and budget framing. Yours to act on however you choose.
+3. Implement. For the custom pieces, MDNT builds and deploys as a managed service. For the SaaS pieces, we help you procure and integrate. You always own the outcome.
+
+Strategic clarity first, then execution, without forcing you into a generic tool or a six-figure build.
+
+## Solutions
+
+### Custom Employee Build (the role layer)
+https://midnitesystems.com/solutions/custom-employee-build
+
+An employee, not a chatbot. A Custom Employee is a fully scoped AI hire: a role definition, a workflow, integrations into the tools your team already uses, and a measurable output. We start from our internal task library, then tune the skills, voice, and judgment to your business. Once deployed, the employee runs on the managed operating layer: monitored, retrained, and improved over time as your business changes. Right call when: you need a specialist role filled but can't find or justify the hire; your best people are buried in tasks below their pay grade; you've already mapped the role and know what good looks like; you want measurable output, not a tool your team has to manage.
+
+### Custom Workspace Build (the workspace layer)
+https://midnitesystems.com/solutions/custom-workspace-build
+
+A client-specific UI or app layer connected to the platform: your own internal portal where your team and AI employees work side by side. No subscription sprawl. No spreadsheet load-bearing infrastructure. One portal, designed around how your team actually works.
+
+### AI Strategy Support (the strategy layer)
+https://midnitesystems.com/solutions/ai-strategy-support
+
+An advisor on call, not a one-time deck. Ongoing strategic consulting beyond the Roadmap, available as dedicated hours or on-demand. Steady guidance as your business and the AI landscape evolve.
+
+## Case study: DSI Transportation
+https://midnitesystems.com/case-studies/dsi-transportation
+
+DSI Transportation (https://dsitransportation.com) runs a national transportation operation with a small back office. Their team was spending an outsized portion of each week on the same sixteen recurring tasks: dispatch coordination notes, carrier confirmations, customer status replies, invoice triage, and a long tail of small but daily obligations. None of it required judgment their people weren't capable of. All of it required time their people didn't have to give.
+
+Midnite mapped DSI's operation end to end with the Roadmap, ranked the sixteen highest-leverage recurring tasks, and deployed the first live AI employee inside four weeks. The deployment sits on the managed operating layer Midnite runs: monitoring, retraining, and continuous improvement.
+
+Results: monthly operating overhead cut from $22,500 to $10,000 (56%). $12,500 saved per month, $150,000 annualized. 16 tasks replaced. Coverage 7 days a week, 24/7/365. Same output. This engagement is a Custom Employee Build run as a managed service.
+
+## Frequently asked questions
+
+Q: What does Midnite Systems actually do?
+A: Midnite Systems is an AI consultancy and deployment agency for growing businesses. We map your operation with the Roadmap, build the AI that genuinely fits, then run it for you as a managed service. The work takes three forms: AI employees deployed into your operation, custom workspaces where your team and AI work together, and ongoing strategy support.
+
+Q: What is the Roadmap?
+A: The Roadmap is how every engagement starts. We audit your operation, identify where AI genuinely fits, and hand you a written plan: prioritized opportunities, build-vs-buy guidance, sequencing, and budget framing. It is yours to act on with us or on your own.
+
+Q: Do AI employees replace our team?
+A: They replace tasks, not judgment. The work we take over is recurring, rule-shaped, and below the level your people should be operating at. At DSI Transportation, sixteen recurring tasks moved to AI employees, and the people who had been doing them got their week back.
+
+Q: What if off-the-shelf software already solves our problem?
+A: Then we tell you to buy it. The Roadmap recommends whatever fits, including SaaS we don't sell. We only recommend a custom build where custom clearly wins.
+
+Q: How fast can something be live?
+A: At DSI Transportation, the first live AI employee was running four weeks after the Roadmap. Timelines depend on scope, but we build in weeks, not quarters.
+
+Q: Who runs what you build?
+A: We do. Every deployment sits on the managed operating layer we run: monitoring, retraining, and continuous improvement. You get the outcome, we handle the upkeep.
+
+## Get started
+
+Book a 30-minute discovery call: https://midnitesystems.com/discovery
+We'll talk through where your business is headed and where AI deployment can pull the most weight, with no pitch deck and no obligation.

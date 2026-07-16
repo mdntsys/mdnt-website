@@ -2,19 +2,19 @@ import type { Metadata } from "next";
 import ReactDOM from "react-dom";
 import { CalEmbed } from "./cal-embed";
 import { HeroNav } from "../hero-nav";
+import { pageOpenGraph } from "../seo";
 
 export const metadata: Metadata = {
   title: "Book a Discovery Call",
   description:
     "Book a discovery call with Midnite Systems to map the highest-leverage AI deployment opportunities inside your business.",
   alternates: { canonical: "/discovery" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Book a Discovery Call | Midnite Systems",
     description:
       "30 minutes to map the highest-leverage AI deployment opportunities inside your business.",
     url: "/discovery",
-    type: "website",
-  },
+  }),
 };
 
 export default function Discovery() {

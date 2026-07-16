@@ -32,7 +32,6 @@ const siteName = "Midnite Systems";
 const siteTitle = "Midnite Systems, AI Consultancy & Deployment Agency";
 const siteDescription =
   "Midnite Systems is an AI consultancy and deployment agency for growing businesses. We map your operation, build the AI that fits, and run it for you as a managed service.";
-const ogImage = "/mdnt-favicon.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -69,20 +68,9 @@ export const metadata: Metadata = {
     siteName,
     type: "website",
     locale: "en_US",
-    images: [
-      {
-        url: ogImage,
-        width: 600,
-        height: 600,
-        alt: siteName,
-      },
-    ],
   },
   twitter: {
-    card: "summary",
-    title: siteTitle,
-    description: siteDescription,
-    images: [ogImage],
+    card: "summary_large_image",
   },
   robots: {
     index: true,
@@ -111,6 +99,7 @@ const structuredData = {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
       name: siteName,
+      alternateName: "MDNT",
       url: siteUrl,
       email: "nic@midnitesystems.com",
       description: siteDescription,
@@ -120,6 +109,25 @@ const structuredData = {
         width: 600,
         height: 600,
       },
+      founder: {
+        "@type": "Person",
+        name: "Nic Perez",
+        jobTitle: "CEO",
+        email: "nic@midnitesystems.com",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: "nic@midnitesystems.com",
+      },
+      knowsAbout: [
+        "AI consulting",
+        "AI deployment",
+        "agentic automation",
+        "AI employees",
+        "custom internal software",
+        "AI strategy for operating businesses",
+      ],
     },
     {
       "@type": "WebSite",
@@ -137,7 +145,7 @@ const structuredData = {
       provider: { "@id": `${siteUrl}/#organization` },
       description:
         "Audit of your operation, identification of where AI genuinely fits, and a deployment plan you can act on with us or on your own.",
-      url: `${siteUrl}/#consultancy`,
+      url: `${siteUrl}/#process`,
       serviceType: "AI consulting",
     },
     {

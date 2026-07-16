@@ -1,36 +1,25 @@
 # Midnite Systems
 
-> AI deployment agency helping growing businesses maximize modern technology. Midnite Systems replaces repetitive workflows with agentic automation and empowers teams with custom platforms and reporting.
+> Midnite Systems (MDNT) is an AI consultancy and deployment agency for growing businesses. We map your operation with the Roadmap, build the AI that genuinely fits, then run it for you as a managed service. We don't just advise: we build, deploy, and operate.
 
-## What Midnite Systems does
+Midnite Systems was built by operators running businesses of their own, not by advisors theorizing about them. Every engagement starts with the Roadmap: an audit of your operation, identification of where AI genuinely fits, and a written plan with prioritized opportunities, build-vs-buy guidance, sequencing, and budget framing, including SaaS recommendations we don't sell. The plan is yours to act on with us or on your own.
 
-Midnite Systems deploys AI inside operating businesses the way a great operator would. Engagements fall on two paths:
+## Solutions
 
-### Path 1: Replacing personnel (the task layer and the role layer)
+- [Solutions overview](https://midnitesystems.com/solutions): The three ways Midnite Systems deploys AI once the Roadmap points the way.
+- [Custom Employee Build](https://midnitesystems.com/solutions/custom-employee-build): Bespoke AI employees deployed into your operation, junior, specialist, or executive. An employee, not a chatbot: a role definition, a workflow, integrations, and a measurable output, run on the managed operating layer.
+- [Custom Workspace Build](https://midnitesystems.com/solutions/custom-workspace-build): A client-specific UI or internal portal connected to the platform, where your team and AI employees work side by side. Replaces subscription sprawl and load-bearing spreadsheets.
+- [AI Strategy Support](https://midnitesystems.com/solutions/ai-strategy-support): Ongoing strategic consulting beyond the Roadmap, as dedicated hours or on-demand. An advisor on call, not a one-time deck.
 
-- Workflow automation. Autonomous agents handle end-to-end workflows, from lead qualification to data entry, so internal teams stop moving data between systems.
-- Custom AI roles. Specialist agents trained around a specific role a business would otherwise hire for. They onboard in days, follow the playbook, and do not churn.
+## Case studies
 
-### Path 2: Empowering personnel (the workspace layer and the visibility layer)
+- [DSI Transportation](https://midnitesystems.com/case-studies/dsi-transportation): Cut monthly operating overhead from $22,500 to $10,000 (56%) by replacing 16 recurring tasks with AI employees running 7 days a week. $150,000 saved annualized. First live agent deployed 4 weeks after the Roadmap.
 
-- Custom platforms. Internal tools designed around how a team actually works, replacing sprawls of disconnected SaaS subscriptions and load-bearing spreadsheets.
-- Decision intelligence. Dashboards and reports engineered around the metrics a team actually makes decisions on, pulling data from multiple systems into a single real-time view.
+## Get started
 
-### Additional service
-
-- AI consulting. Strategy sessions that audit workflows, identify the highest-leverage AI opportunities, and map a deployment plan the business can act on with or without Midnite Systems.
-
-## How Midnite Systems works
-
-- Full-stack ownership from strategy through deployment and optimization. One partner, no handoff friction.
-- AI-native by default. Intelligence designed in as a first-class citizen at every layer, not bolted onto existing workflows.
-- Engineered for the real complexity of running a growing business: security, reliability, and scale without enterprise bloat.
-
-## Who Midnite Systems is for
-
-Operating businesses and modern teams that want agentic automation and custom internal software delivered by a single partner.
+- [Book a discovery call](https://midnitesystems.com/discovery): 30 minutes to map where AI deployment can pull the most weight in your business. No pitch deck, no obligation.
 
 ## Contact
 
-- Email: nic@midnitesystems.com
+- Email: nic@midnitesystems.com (Nic Perez, CEO)
 - Website: https://midnitesystems.com

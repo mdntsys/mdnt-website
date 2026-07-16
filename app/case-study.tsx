@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const BEFORE_MONTHLY = 22500;
 const AFTER_MONTHLY = 10000;
@@ -278,6 +279,13 @@ export function CaseStudy() {
               and stay sharp on the monitoring and retraining we handle
               for them.
             </p>
+            <Link
+              href="/case-studies/dsi-transportation"
+              className="btn-ghost card-cta"
+            >
+              Read the full case study
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroNav } from "../../hero-nav";
+import { pageOpenGraph } from "../../seo";
 
 export const metadata: Metadata = {
   title: "AI Strategy Support",
   description:
     "Ongoing strategic consulting beyond the Roadmap. Available as dedicated hours or on-demand. Steady guidance as your business and the AI landscape evolve.",
   alternates: { canonical: "/solutions/ai-strategy-support" },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "AI Strategy Support | Midnite Systems",
     description:
       "Ongoing strategic AI consulting beyond the Roadmap. Dedicated hours or on-demand.",
     url: "/solutions/ai-strategy-support",
-    type: "website",
-  },
+  }),
 };
 
 export default function AIStrategySupport() {

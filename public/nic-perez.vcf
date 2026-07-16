@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Perez;Nic;;;
+FN:Nic Perez
+ORG:Midnite Systems
+TITLE:CEO
+EMAIL;TYPE=INTERNET,WORK:nic@midnitesystems.com
+URL:https://midnitesystems.com
+NOTE:AI consultancy and deployment for growing businesses.
+END:VCARD

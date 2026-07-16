@@ -1,19 +1,49 @@
 import type { MetadataRoute } from "next";
 
 const siteUrl = "https://midnitesystems.com";
+const lastUpdated = new Date("2026-07-14");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   return [
     {
       url: `${siteUrl}/`,
-      lastModified: now,
+      lastModified: lastUpdated,
       changeFrequency: "monthly",
       priority: 1,
     },
     {
+      url: `${siteUrl}/solutions`,
+      lastModified: lastUpdated,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/solutions/custom-employee-build`,
+      lastModified: lastUpdated,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/solutions/custom-workspace-build`,
+      lastModified: lastUpdated,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/solutions/ai-strategy-support`,
+      lastModified: lastUpdated,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/case-studies/dsi-transportation`,
+      lastModified: lastUpdated,
+      changeFrequency: "yearly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/discovery`,
-      lastModified: now,
+      lastModified: lastUpdated,
       changeFrequency: "monthly",
       priority: 0.9,
     },
