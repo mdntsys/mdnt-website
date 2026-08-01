@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 const siteUrl = "https://midnitesystems.com";
 const lastUpdated = new Date("2026-07-14");
+const worksheetsUpdated = new Date("2026-08-01");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -46,6 +47,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: lastUpdated,
       changeFrequency: "monthly",
       priority: 0.9,
+    },
+    // The two lead magnets. Indexed deliberately: they carry substantive
+    // content targeting the same clusters the ad campaign bids on, and
+    // "ai readiness assessment" is a difficulty-12 term this site can
+    // plausibly rank for organically.
+    {
+      url: `${siteUrl}/worksheets/ai-readiness-assessment`,
+      lastModified: worksheetsUpdated,
+      changeFrequency: "yearly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/worksheets/operations-audit`,
+      lastModified: worksheetsUpdated,
+      changeFrequency: "yearly",
+      priority: 0.8,
     },
   ];
 }
