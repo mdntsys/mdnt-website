@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { captureAttribution, readAttribution } from "./attribution";
+import { reportLeadConversion } from "./google-ads";
 
 // The opt-in form for both landing pages.
 //
@@ -94,12 +95,20 @@ export function OptInForm({
       }
 
       const body: unknown = await response.json();
-      const id =
+      const payload =
         typeof body === "object" && body !== null
-          ? (body as { leadId?: unknown }).leadId
-          : undefined;
+          ? (body as { leadId?: unknown; isFirstTouch?: unknown })
+          : {};
 
-      if (typeof id === "string") setLeadId(id);
+      const id = typeof payload.leadId === "string" ? payload.leadId : null;
+      if (id !== null) setLeadId(id);
+
+      // Only a first touch is a conversion. The API tells us whether this
+      // email was already in the CRM, and someone coming back for the second
+      // worksheet must not report as a second opt-in: cost per opt-in is the
+      // number the Day 90 kill gate is decided on.
+      if (payload.isFirstTouch === true) reportLeadConversion(id);
+
       setStage("enrich");
     } catch {
       setError(

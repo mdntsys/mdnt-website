@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { GoogleAdsTag } from "./google-ads-tag";
 import { OptInForm, type Magnet } from "./opt-in-form";
 
 // Shared chrome for the two paid landing pages.
@@ -31,6 +32,7 @@ export function LandingShell({
 }: LandingShellProps) {
   return (
     <main className="lp">
+      <GoogleAdsTag />
       <header className="lp-topbar">
         <Link href="/" className="lp-brand">
           Midnite Systems
