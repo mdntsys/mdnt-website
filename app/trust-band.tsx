@@ -37,16 +37,28 @@ function useCounter(
   const [value, setValue] = useState(0);
 
   useEffect(() => {
+    // Both early exits defer by a frame instead of setting state
+    // synchronously. A sync setState in an effect body triggers a
+    // cascading render; the value here is display-only, so a single
+    // frame of delay is imperceptible and the render stays clean.
     if (!start) {
-      setValue(0);
-      return;
+      const reset = requestAnimationFrame(() => {
+        setValue(0);
+      });
+      return () => {
+        cancelAnimationFrame(reset);
+      };
     }
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
     if (reduced) {
-      setValue(target);
-      return;
+      const snap = requestAnimationFrame(() => {
+        setValue(target);
+      });
+      return () => {
+        cancelAnimationFrame(snap);
+      };
     }
     let raf = 0;
     let t0 = 0;

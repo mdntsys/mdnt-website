@@ -51,6 +51,10 @@ const MOBILE_NODES = [
 // effectively at the start, midpoint, and end.
 const STEP_THRESHOLDS = [0.04, 0.5, 0.96];
 
+// DOMPoint is a live object with more on it than we store. Narrowing to
+// plain data keeps the state serializable and comparable.
+const pointOf = (p: DOMPoint): { x: number; y: number } => ({ x: p.x, y: p.y });
+
 export function ProcessJourney() {
   const sectionRef = useRef<HTMLElement>(null);
   const desktopPathRef = useRef<SVGPathElement>(null);
@@ -59,6 +63,15 @@ export function ProcessJourney() {
   const [progress, setProgress] = useState(0);
   const [desktopLength, setDesktopLength] = useState(1000);
   const [mobileLength, setMobileLength] = useState(100);
+  // The leading dot's position on each path. Held in state rather than
+  // derived at render time because computing it needs getPointAtLength on
+  // the path element, and reading a ref during render is not safe: refs are
+  // not populated on the first render or during server rendering, so the
+  // output would differ between passes.
+  const [dots, setDots] = useState<{
+    desktop: { x: number; y: number } | null;
+    mobile: { x: number; y: number } | null;
+  }>({ desktop: null, mobile: null });
 
   useEffect(() => {
     if (desktopPathRef.current) {
@@ -77,8 +90,14 @@ export function ProcessJourney() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     if (reduced) {
-      setProgress(1);
-      return;
+      // Deferred a frame rather than set synchronously, for the same
+      // cascading-render reason as the counters in trust-band.tsx.
+      const snap = requestAnimationFrame(() => {
+        setProgress(1);
+      });
+      return () => {
+        cancelAnimationFrame(snap);
+      };
     }
 
     let raf = 0;
@@ -93,7 +112,23 @@ export function ProcessJourney() {
       const vh = window.innerHeight;
       const sectionCenter = rect.top + rect.height / 2;
       const raw = (vh - sectionCenter) / vh;
-      setProgress(Math.max(0, Math.min(1, raw)));
+      const next = Math.max(0, Math.min(1, raw));
+      setProgress(next);
+
+      // Inside a rAF callback, not during render, so the refs are safe to
+      // read here. Length comes straight off the element rather than from
+      // state, which keeps the dot correct even before the length effect
+      // has run.
+      const dp = desktopPathRef.current;
+      const mp = mobilePathRef.current;
+      setDots({
+        desktop: dp
+          ? pointOf(dp.getPointAtLength(next * dp.getTotalLength()))
+          : null,
+        mobile: mp
+          ? pointOf(mp.getPointAtLength(next * mp.getTotalLength()))
+          : null,
+      });
     };
 
     const onScroll = () => {
@@ -112,17 +147,8 @@ export function ProcessJourney() {
     };
   }, []);
 
-  // Compute the leading dot's position on each path.
-  const desktopDot = (() => {
-    const p = desktopPathRef.current;
-    if (!p) return null;
-    return p.getPointAtLength(progress * desktopLength);
-  })();
-  const mobileDot = (() => {
-    const p = mobilePathRef.current;
-    if (!p) return null;
-    return p.getPointAtLength(progress * mobileLength);
-  })();
+  const desktopDot = dots.desktop;
+  const mobileDot = dots.mobile;
 
   const reached = STEP_THRESHOLDS.map((threshold) => progress >= threshold);
   const dotVisible = progress > 0.005 && progress < 0.995;
