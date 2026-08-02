@@ -53,6 +53,7 @@ export function BookingWidget() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState<Date | null>(null);
+  const [invited, setInvited] = useState(false);
 
   // Resolved once on the client. Intl always returns something; the fallback
   // only guards a non-browser render.
@@ -173,6 +174,15 @@ export function BookingWidget() {
         return;
       }
 
+      // The API tells us whether a calendar invite actually reached them.
+      // Only claim an email is coming when one is.
+      const body: unknown = await response.json().catch(() => ({}));
+      const sent =
+        typeof body === "object" &&
+        body !== null &&
+        (body as { confirmationSent?: unknown }).confirmationSent === true;
+
+      setInvited(sent);
       setConfirmed(selected);
       setStage("booked");
     } catch {
@@ -215,8 +225,9 @@ export function BookingWidget() {
           {dayLabel(confirmed, timeZone)} at {timeLabel(confirmed, timeZone)}
         </p>
         <p className="bk-status-text">
-          Fifteen minutes. Bring the task that is on your mind. A confirmation
-          is on its way, and you can move or cancel it from that email.
+          {invited
+            ? "Fifteen minutes. Bring the task that is on your mind. A calendar invite with the meeting link is on its way, and you can move or cancel it from there."
+            : "Fifteen minutes. Bring the task that is on your mind. We have you down and Nic will confirm the details by email shortly."}
         </p>
       </div>
     );

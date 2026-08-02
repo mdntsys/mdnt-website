@@ -162,9 +162,15 @@ export function OptInForm({
           Open the worksheet
           <span aria-hidden="true"> &rarr;</span>
         </Link>
+        {/* Says only what is actually wired. The nurture sequence is written
+            but has no sender yet, and promising email we cannot send is how a
+            funnel loses the trust the worksheet just earned. Put the promise
+            back when @midnite/email is connected. */}
         <p className="lp-form-fine">
-          We will also send a short follow-up sequence over the next week. Reply
-          stop to any of it and we will leave you alone.
+          The worksheet is yours to keep, and nothing else is required. If you
+          want a second pair of eyes on what you find, that is what{" "}
+          <a href="mailto:nic@midnitesystems.com">nic@midnitesystems.com</a> is
+          for.
         </p>
       </div>
     );
@@ -275,8 +281,8 @@ export function OptInForm({
       </button>
 
       <p className="lp-form-fine">
-        No newsletter. You get the worksheet immediately, then a short
-        follow-up sequence over the next week.
+        No newsletter, no sales sequence. You get the worksheet immediately, on
+        the next screen.
       </p>
     </form>
   );
