@@ -1,29 +1,22 @@
 import type { Metadata } from "next";
-import ReactDOM from "react-dom";
-import { CalEmbed } from "./cal-embed";
+import { BookingWidget } from "./booking-widget";
 import { HeroNav } from "../hero-nav";
 import { pageOpenGraph } from "../seo";
 
 export const metadata: Metadata = {
   title: "Book a Discovery Call",
   description:
-    "Book a discovery call with Midnite Systems to map the highest-leverage AI deployment opportunities inside your business.",
+    "Book a fifteen minute qualification call with Midnite Systems to map the highest-leverage AI deployment opportunities inside your business.",
   alternates: { canonical: "/discovery" },
   openGraph: pageOpenGraph({
     title: "Book a Discovery Call | Midnite Systems",
     description:
-      "30 minutes to map the highest-leverage AI deployment opportunities inside your business.",
+      "Fifteen minutes to map the highest-leverage AI deployment opportunities inside your business.",
     url: "/discovery",
   }),
 };
 
 export default function Discovery() {
-  ReactDOM.preconnect("https://app.cal.com", { crossOrigin: "anonymous" });
-  ReactDOM.preconnect("https://cal.com", { crossOrigin: "anonymous" });
-  ReactDOM.prefetchDNS("https://app.cal.com");
-  ReactDOM.prefetchDNS("https://cal.com");
-  ReactDOM.preload("https://app.cal.com/embed/embed.js", { as: "script" });
-
   return (
     <>
       <HeroNav />
@@ -35,7 +28,7 @@ export default function Discovery() {
             Let&apos;s see if we&apos;re a <em>fit</em>.
           </h1>
           <p className="discovery-sub">
-            Pick a time that works. We&apos;ll talk through where your
+            Pick a time that works. Fifteen minutes to talk through where your
             business is headed and where AI deployment can pull the most
             weight, with no pitch deck and no obligation.
           </p>
@@ -43,22 +36,14 @@ export default function Discovery() {
 
         <div className="discovery-cal-bezel-outer">
           <div className="discovery-cal-bezel-inner">
-            <CalEmbed />
+            <BookingWidget />
           </div>
         </div>
 
         <p className="discovery-fallback">
           Calendar not loading? Email{" "}
           <a href="mailto:nic@midnitesystems.com">nic@midnitesystems.com</a>
-          {" "}or book directly at{" "}
-          <a
-            href="https://cal.com/nicolas-perez-ye8jb3/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            cal.com/nicolas-perez-ye8jb3
-          </a>
-          .
+          {" "}and we will find a time.
         </p>
       </div>
       </main>

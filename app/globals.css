@@ -3881,3 +3881,184 @@ select.lp-input {
 }
 
 .lp-foot a { color: var(--text-secondary); }
+
+/* ============================================================
+   Booking widget (/discovery)
+   Replaces the Cal.com embed. All times render in the visitor's
+   own zone; the API deals only in absolute instants.
+   ============================================================ */
+
+.bk {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 1.9rem);
+  text-align: left;
+}
+
+.bk-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.bk-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-mid);
+}
+
+.bk-tz {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.bk-days {
+  display: grid;
+  gap: 1.4rem;
+  max-height: 26rem;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.bk-day-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.bk-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  gap: 0.5rem;
+}
+
+.bk-slot {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.55rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease;
+  font-variant-numeric: tabular-nums;
+}
+
+.bk-slot:hover {
+  border-color: var(--accent-mid);
+  color: var(--accent-mid);
+}
+
+.bk-field { display: grid; gap: 0.35rem; }
+
+.bk-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.bk-optional {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.bk-input {
+  font: inherit;
+  font-size: 0.95rem;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  resize: vertical;
+}
+
+.bk-input:focus {
+  outline: none;
+  border-color: var(--accent-mid);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.bk-chosen {
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.bk-change,
+.bk-ghost {
+  font: inherit;
+  font-size: 0.78rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+}
+
+.bk-change:hover,
+.bk-ghost:hover { color: var(--accent-mid); }
+
+.bk-submit {
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent-mid);
+  color: #0b0b0b;
+  cursor: pointer;
+}
+
+.bk-submit:hover:not(:disabled) { opacity: 0.88; }
+.bk-submit:disabled { opacity: 0.55; cursor: default; }
+
+.bk-status {
+  min-height: 12rem;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.bk-status-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 26rem;
+}
+
+.bk-status-text a { color: var(--accent-mid); }
+
+.bk-confirm-time {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.bk-error {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #ffb4a2;
+  background: rgba(255, 100, 70, 0.08);
+  border: 1px solid rgba(255, 100, 70, 0.22);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+}
