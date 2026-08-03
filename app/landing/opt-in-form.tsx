@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { captureAttribution, readAttribution } from "./attribution";
 import { reportLeadConversion } from "./google-ads";
+import type { LandingVariant } from "./variant";
 
 // The opt-in form for both landing pages.
 //
@@ -37,12 +38,17 @@ type Stage = "capture" | "enrich" | "done";
 
 interface OptInFormProps {
   magnet: Magnet;
+  // Which arm of the split test rendered this form. Sent with the opt-in so
+  // conversion by variant is a column on the lead rather than something we
+  // have to reconstruct from Google's reporting later.
+  variant: LandingVariant;
   worksheetHref: string;
   submitLabel: string;
 }
 
 export function OptInForm({
   magnet,
+  variant,
   worksheetHref,
   submitLabel,
 }: OptInFormProps) {
@@ -74,6 +80,7 @@ export function OptInForm({
           firstName: String(data.get("firstName") ?? "") || undefined,
           company: String(data.get("company") ?? "") || undefined,
           magnet,
+          variant,
           landingPath: attribution.landingPath,
           queryString: attribution.queryString,
           referrer: attribution.referrer,

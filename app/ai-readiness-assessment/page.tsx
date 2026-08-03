@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { pageOpenGraph } from "../seo";
-import { LandingSection, LandingShell } from "../landing/landing-shell";
+import {
+  LandingSection,
+  LandingShell,
+  type HeroContent,
+} from "../landing/landing-shell";
+import {
+  readVariant,
+  VARIANT_HEADER,
+  type LandingVariant,
+} from "../landing/variant";
 
 // Slug is an exact match on "ai readiness assessment": 1,400 searches a month
 // at keyword difficulty 12, and a literal description of the $2,500 AI Audit.
@@ -20,31 +30,59 @@ export const metadata: Metadata = {
   }),
 };
 
-export default function AiReadinessAssessmentLanding() {
+// Ad groups B and C bid on "ai readiness assessment", "ai strategy consulting"
+// and "ai consultant". Both headlines below use those words. The previous
+// headline, "Are you actually ready to deploy AI?", asked a question the
+// searcher had already answered by searching.
+const HERO: Record<LandingVariant, HeroContent> = {
+  calculator: {
+    eyebrow: "Free assessment",
+    title: (
+      <>
+        What is manual work <em>costing you?</em>
+      </>
+    ),
+    lead: "Start with the number. Then score your AI readiness across five dimensions and find out whether that money is recoverable yet.",
+    checks: [
+      "Twenty questions across five dimensions",
+      "Scored zero to three, about one specific task",
+      "Fifteen minutes, and an honest answer",
+    ],
+    trustLine:
+      "Built for operating businesses with a team and real systems to connect.",
+  },
+  proof: {
+    eyebrow: "Free assessment",
+    title: (
+      <>
+        95% of AI pilots return <em>nothing.</em>
+      </>
+    ),
+    lead: "The failures are predictable. Twenty questions across five dimensions tell you which side of that number you are on, before you spend anything.",
+    checks: [
+      "Twenty questions across five dimensions",
+      "Scored zero to three, about one specific task",
+      "Fifteen minutes, and an honest answer",
+    ],
+    trustLine:
+      "Built for operating businesses with a team and real systems to connect.",
+  },
+};
+
+const PROOF_METRICS = [
+  { num: "95%", unit: "of pilots return $0" },
+  { num: "53%", unit: "blocked by data quality" },
+  { num: "5", unit: "dimensions scored" },
+] as const;
+
+export default async function AiReadinessAssessmentLanding() {
+  const variant = readVariant((await headers()).get(VARIANT_HEADER));
+
   return (
     <LandingShell
-      eyebrow="Free assessment · 20 questions"
-      title={
-        <>
-          Are you actually ready to <em>deploy</em> AI?
-        </>
-      }
-      lead={
-        <>
-          <p>
-            Most businesses your size have already tried AI somewhere. Most of
-            it has not paid for itself yet. That is not a failure of nerve or of
-            technology. It is almost always a failure of preconditions, and
-            preconditions are knowable before you spend anything.
-          </p>
-          <p>
-            This AI readiness assessment scores five of them across twenty
-            questions. You will finish with a number, a tier, and a clear answer
-            about whether to proceed.
-          </p>
-        </>
-      }
-      trustLine="Fifteen minutes. Built for operating businesses with a team and real systems to connect."
+      variant={variant}
+      hero={HERO}
+      proofMetrics={PROOF_METRICS}
       magnet="ai_readiness_assessment"
       worksheetHref="/worksheets/ai-readiness-assessment"
       submitLabel="Get the assessment"
