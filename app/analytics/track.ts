@@ -122,27 +122,38 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
   // is not eight hours of attention, and letting it count as such would make
   // any median it lands in meaningless.
   //
-  // Computed as elapsed-minus-hidden rather than by accumulating visible
-  // stretches, and that choice is about the failure mode. Accumulating visible
-  // time starts at zero and only grows when visibilitychange fires as
-  // expected; anywhere that event is unreliable the result is a confident
-  // zero. Zero is the worst possible wrong answer here, because the bounce
-  // test is "left almost immediately" and a zero silently classifies every
-  // visit as a bounce. Subtracting hidden time from elapsed instead degrades
-  // to a mild overestimate, which is visible as an implausible number rather
-  // than invisible as a plausible one.
-  const mountedAt = Date.now();
-  let hiddenMs = 0;
-  let hiddenSince =
-    document.visibilityState === "hidden" ? mountedAt : null;
+  // Accumulated from animation frame deltas, because the browser only runs
+  // animation frames while the page is actually visible. That makes the frame
+  // clock a direct measurement of attention rather than an inference from
+  // visibility events.
+  //
+  // Two earlier attempts both failed on the same page, and the reason is worth
+  // keeping. Both derived visible time from `visibilitychange`: one
+  // accumulated visible stretches, the other subtracted hidden time from
+  // elapsed. Either way, a page that MOUNTS hidden starts in the hidden state,
+  // and if the event that clears it is missed or fired before the listener
+  // attached, the page is considered hidden for its entire life and dwell is
+  // permanently zero.
+  //
+  // That is not a hypothetical. Anyone who opens an ad result in a background
+  // tab and reads it a minute later mounts hidden, and would have been
+  // recorded as a zero second visit. Zero is the worst possible wrong answer
+  // here: the bounce test is "left almost immediately", so a silent zero
+  // classifies the most considered readers as bounces and points the next
+  // month of work at the ad when the offer is the problem.
+  //
+  // Counting frames has no such state to get stuck in. If frames are running
+  // the reader is looking at the page, and if they are not, they are not.
+  let visibleMs = 0;
+  let lastTick = performance.now();
   let exited = false;
 
-  const visibleMsNow = (): number => {
-    const now = Date.now();
-    const hiddenTotal =
-      hiddenMs + (hiddenSince === null ? 0 : now - hiddenSince);
-    return Math.max(0, now - mountedAt - hiddenTotal);
-  };
+  // A normal frame gap is about 16ms. Anything beyond a second means the tab
+  // was backgrounded or throttled, and that stretch was not attention, so it
+  // is dropped rather than added.
+  const MAX_FRAME_GAP_MS = 1000;
+
+  const visibleMsNow = (): number => Math.round(visibleMs);
 
   // Sampled on requestAnimationFrame rather than driven by a scroll listener.
   //
@@ -160,6 +171,14 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
   let rafId = 0;
 
   const sample = (): void => {
+    // Visible-time accumulation. This is the only place dwell is measured, so
+    // the loop must keep running for the life of the page even after every
+    // scroll milestone is recorded.
+    const nowTick = performance.now();
+    const delta = nowTick - lastTick;
+    lastTick = nowTick;
+    if (delta < MAX_FRAME_GAP_MS) visibleMs += delta;
+
     // Cheap early-out. This runs every frame, so it must do nothing at all in
     // the common case where the page has not moved.
     const y = window.scrollY;
@@ -189,10 +208,10 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
       }
     }
 
-    // Every milestone is recorded, so there is nothing left to observe. Stops
-    // the loop rather than burning a frame callback for the rest of the visit.
-    if (reached.size === SCROLL_MILESTONES.length) return;
-
+    // Deliberately unconditional. An earlier version stopped once every scroll
+    // milestone was recorded, which is fine for scroll and fatal for dwell:
+    // the frame clock IS the dwell measurement, so stopping it freezes time
+    // for exactly the readers who got to the bottom of the page.
     rafId = requestAnimationFrame(sample);
   };
 
@@ -219,18 +238,17 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
     );
   };
 
+  // Visibility is now only a signal for WHEN to send, never for how long the
+  // page was read. Dwell comes from the frame clock, which needs no help from
+  // this handler and cannot be broken by it.
   const onVisibility = (): void => {
     if (document.visibilityState === "visible") {
-      if (hiddenSince !== null) {
-        hiddenMs += Date.now() - hiddenSince;
-        hiddenSince = null;
-      }
-      // Re-arm. They came back, so the visit is not over and the dwell we
-      // already sent is now an undercount.
+      // Re-arm. They came back, so the visit is not over and the dwell already
+      // sent is now an undercount. The next departure sends a larger one and
+      // the analysis takes max(dwell_ms).
       exited = false;
       return;
     }
-    hiddenSince = Date.now();
     // hidden is the last moment a beacon is reliably allowed to fire, and on
     // mobile it is often the only one: pagehide is not guaranteed when an app
     // is backgrounded or the tab is discarded.
