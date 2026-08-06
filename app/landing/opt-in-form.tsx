@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { captureAttribution, readAttribution } from "./attribution";
 import { reportLeadConversion } from "./google-ads";
+import { currentVisitorId, track } from "../analytics/track";
 import type { LandingVariant } from "./variant";
 
 // The opt-in form for both landing pages.
@@ -56,6 +57,24 @@ export function OptInForm({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [leadId, setLeadId] = useState<string | null>(null);
+  // Whether this visitor ever put the cursor in a field. The gap between
+  // "started" and "submitted" is abandonment, which is a different failure
+  // from never touching the form at all and has a different fix.
+  const startedRef = useRef(false);
+
+  // Fires once. A visitor who tabs between three fields is one start, not
+  // three, and counting it three times would make abandonment look better
+  // than it is.
+  function handleFormStart() {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    track({
+      type: "form_start",
+      path: window.location.pathname,
+      variant,
+      magnet,
+    });
+  }
 
   // On mount, before anything else. See attribution.ts for why load-time
   // matters more than submit-time.
@@ -81,6 +100,10 @@ export function OptInForm({
           company: String(data.get("company") ?? "") || undefined,
           magnet,
           variant,
+          // Ties this opt-in to the funnel_events trail behind it, so opt-in
+          // rate can be read against people we watched read the page rather
+          // than against Google's click count.
+          visitorId: currentVisitorId() ?? undefined,
           landingPath: attribution.landingPath,
           queryString: attribution.queryString,
           referrer: attribution.referrer,
@@ -115,6 +138,17 @@ export function OptInForm({
       // worksheet must not report as a second opt-in: cost per opt-in is the
       // number the Day 90 kill gate is decided on.
       if (payload.isFirstTouch === true) reportLeadConversion(id);
+
+      // Recorded for every successful capture, first touch or not. This is the
+      // in-house counterpart to the Ads conversion above: it survives ad
+      // blockers, and it is the only one that can be joined to how far the
+      // visitor scrolled before deciding.
+      track({
+        type: "form_submit",
+        path: window.location.pathname,
+        variant,
+        magnet,
+      });
 
       setStage("enrich");
     } catch {
@@ -236,7 +270,9 @@ export function OptInForm({
   }
 
   return (
-    <form className="lp-form" onSubmit={handleCapture}>
+    // onFocus on the form rather than each input: React's onFocus bubbles, so
+    // one handler covers every field and stays correct if a field is added.
+    <form className="lp-form" onSubmit={handleCapture} onFocus={handleFormStart}>
       <span className="lp-form-eyebrow">Free</span>
       <h2 className="lp-form-h2">{submitLabel}</h2>
 

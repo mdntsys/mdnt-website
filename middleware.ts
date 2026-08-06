@@ -5,39 +5,87 @@ import {
   VARIANT_HEADER,
   isLandingVariant,
 } from "./app/landing/variant";
+import {
+  VISITOR_COOKIE,
+  VISITOR_COOKIE_MAX_AGE,
+  VISITOR_HEADER,
+  isVisitorId,
+} from "./app/analytics/visitor";
 
-// Assigns each visitor to one arm of the landing page split test.
+// Two jobs, both of which have to happen before the first byte of HTML.
 //
-// Sticky by cookie, because a visitor who reloads or comes back tomorrow must
-// see the same page. A visitor who saw both would count as one opt-in against
-// two impressions and quietly bias the result.
+// 1. Assign an anonymous visitor id, on every content page. Minting it here
+//    rather than in the browser means a visit is attributable even if the
+//    reader leaves before a script has done anything, which is exactly the
+//    population a bounce metric is about.
 //
-// The variant is passed to the page as a request header rather than read from
-// the cookie inside the page, because on a first visit the cookie only exists
-// on the response. Without the header the very first render of every new
-// visitor would fall to the same arm, which is exactly the population the test
-// is measuring.
+// 2. Assign one arm of the landing page split test, on the two ad landing
+//    pages only.
 //
-// Assignment is a coin flip rather than a hash of anything stable. There is no
-// user id to hash at this point in the funnel, and hashing the IP would put
-// everyone behind one corporate NAT into the same arm.
+// Both are sticky by cookie: a visitor who reloads or returns tomorrow must
+// see the same page and count as the same person. Someone who saw both arms
+// would be one opt-in against two impressions and would quietly bias the test.
+//
+// Both are passed to the page as request headers rather than read from the
+// cookie inside the page, because on a first visit the cookie only exists on
+// the response. Without the header every new visitor's first render would fall
+// to the same arm and carry no visitor id, and new visitors are the entire
+// measurement.
 
 export const config = {
-  matcher: ["/ai-operations-audit", "/ai-readiness-assessment"],
+  // Everything except Next internals and static assets. The visitor id has to
+  // land on ordinary content pages too, not just the paid landing pages,
+  // because organic traffic to the worksheets is about to start arriving and
+  // that is traffic nobody has ever measured.
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpe?g|gif|svg|webp|ico|mp4|txt|xml|vcf)$).*)",
+  ],
 };
 
+const LANDING_PATHS = new Set([
+  "/ai-operations-audit",
+  "/ai-readiness-assessment",
+]);
+
 export function middleware(request: NextRequest) {
-  const existing = request.cookies.get(VARIANT_COOKIE)?.value;
-  const variant = isLandingVariant(existing)
-    ? existing
+  const headers = new Headers(request.headers);
+
+  const existingVisitor = request.cookies.get(VISITOR_COOKIE)?.value;
+  const visitorId = isVisitorId(existingVisitor)
+    ? existingVisitor
+    : crypto.randomUUID();
+  headers.set(VISITOR_HEADER, visitorId);
+
+  // Assignment is a coin flip rather than a hash of anything stable. There is
+  // no user id at this point in the funnel, and hashing the IP would put
+  // everyone behind one corporate NAT into the same arm.
+  const isLandingPage = LANDING_PATHS.has(request.nextUrl.pathname);
+  const existingVariant = request.cookies.get(VARIANT_COOKIE)?.value;
+  const variant = isLandingVariant(existingVariant)
+    ? existingVariant
     : LANDING_VARIANTS[Math.random() < 0.5 ? 0 : 1];
 
-  const headers = new Headers(request.headers);
-  headers.set(VARIANT_HEADER, variant);
+  if (isLandingPage) {
+    headers.set(VARIANT_HEADER, variant);
+  }
 
   const response = NextResponse.next({ request: { headers } });
 
-  if (existing !== variant) {
+  if (existingVisitor !== visitorId) {
+    response.cookies.set(VISITOR_COOKIE, visitorId, {
+      maxAge: VISITOR_COOKIE_MAX_AGE,
+      path: "/",
+      sameSite: "lax",
+      // Readable by the tracker, which has to send it to a different origin
+      // (app.midnitesystems.com) where an httpOnly cookie would never arrive.
+      httpOnly: false,
+      secure: true,
+    });
+  }
+
+  // Only written on the pages under test. Writing it site-wide would enrol
+  // visitors who never saw either arm and dilute the population.
+  if (isLandingPage && existingVariant !== variant) {
     response.cookies.set(VARIANT_COOKIE, variant, {
       // Long enough that a visitor who thinks it over for a month and comes
       // back still sees the page they were measured on.

@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "./smooth-scroll";
 import { RevealObserver } from "./reveal-observer";
 import { SiteFooter } from "./site-footer";
+import { PageAnalytics } from "./analytics/page-analytics";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -196,6 +197,11 @@ export default function RootLayout({
         {children}
         <SiteFooter />
         <RevealObserver />
+        {/* Site-wide, not landing-page-only. Until now the only instrumentation
+            on this site was the Google Ads conversion tag on two pages, so a
+            visit that did not convert left no trace at all. The landing pages
+            render their own PageAnalytics with the split test arm attached. */}
+        <PageAnalytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

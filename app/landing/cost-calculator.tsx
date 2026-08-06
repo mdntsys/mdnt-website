@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { track } from "../analytics/track";
 
 // The whole point of this arm: give the visitor their number before asking for
 // anything. Two inputs, one figure, no email.
@@ -35,6 +36,26 @@ export function CostCalculator() {
 
   const annual = useMemo(() => hours * WEEKS_PER_YEAR * rate, [hours, rate]);
 
+  // The single most important signal this arm produces. If the calculator arm
+  // loses and nobody ever touched the inputs, the idea was not tested: the
+  // reader never engaged with it. If it loses while people did use it, the
+  // idea was tested and it failed. Those are different conclusions and only
+  // this event tells them apart.
+  //
+  // Once per visit. Every keystroke changes the value, and counting each one
+  // would report a handful of curious visitors as heavy engagement.
+  const usedRef = useRef(false);
+  const trackFirstUse = () => {
+    if (usedRef.current) return;
+    usedRef.current = true;
+    track({
+      type: "calculator_use",
+      path: window.location.pathname,
+      variant: "calculator",
+      magnet: "operations_audit",
+    });
+  };
+
   return (
     <div className="lp-calc">
       <div className="lp-calc-row">
@@ -50,6 +71,7 @@ export function CostCalculator() {
             max={400}
             value={hours}
             onChange={(event) => {
+              trackFirstUse();
               setHours(clamp(Number(event.target.value) || 0, 0, 400));
             }}
           />
@@ -67,6 +89,7 @@ export function CostCalculator() {
             max={500}
             value={rate}
             onChange={(event) => {
+              trackFirstUse();
               setRate(clamp(Number(event.target.value) || 0, 0, 500));
             }}
           />
