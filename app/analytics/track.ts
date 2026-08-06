@@ -1,6 +1,7 @@
 "use client";
 
 import { VISITOR_COOKIE, isVisitorId } from "./visitor";
+import { createDwellClock } from "./dwell";
 
 // First-party funnel analytics.
 //
@@ -144,16 +145,12 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
   //
   // Counting frames has no such state to get stuck in. If frames are running
   // the reader is looking at the page, and if they are not, they are not.
-  let visibleMs = 0;
-  let lastTick = performance.now();
+  // Arithmetic lives in dwell.ts, where it is unit tested. See that file for
+  // why the frame clock is the measurement rather than visibilitychange.
+  const dwell = createDwellClock(performance.now());
   let exited = false;
 
-  // A normal frame gap is about 16ms. Anything beyond a second means the tab
-  // was backgrounded or throttled, and that stretch was not attention, so it
-  // is dropped rather than added.
-  const MAX_FRAME_GAP_MS = 1000;
-
-  const visibleMsNow = (): number => Math.round(visibleMs);
+  const visibleMsNow = (): number => dwell.read();
 
   // Sampled on requestAnimationFrame rather than driven by a scroll listener.
   //
@@ -174,10 +171,7 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
     // Visible-time accumulation. This is the only place dwell is measured, so
     // the loop must keep running for the life of the page even after every
     // scroll milestone is recorded.
-    const nowTick = performance.now();
-    const delta = nowTick - lastTick;
-    lastTick = nowTick;
-    if (delta < MAX_FRAME_GAP_MS) visibleMs += delta;
+    dwell.tick(performance.now());
 
     // Cheap early-out. This runs every frame, so it must do nothing at all in
     // the common case where the page has not moved.
