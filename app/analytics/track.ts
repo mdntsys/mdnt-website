@@ -131,27 +131,56 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
     visibleSince = null;
   };
 
-  const onScroll = (): void => {
-    const doc = document.documentElement;
-    const scrollable = doc.scrollHeight - window.innerHeight;
-    // A page shorter than the viewport cannot be scrolled, so depth carries no
-    // information. Recording 100% for it would inflate every engagement rate.
-    if (scrollable <= 0) return;
+  // Sampled on requestAnimationFrame rather than driven by a scroll listener.
+  //
+  // This site runs Lenis for smooth scrolling, and Lenis virtualises the
+  // scroll: it moves the page without ever emitting a native `scroll` event on
+  // window, document, or documentElement. A listener-based implementation
+  // records nothing here, and records it silently, which would have shown up
+  // as "no visitor ever scrolls" rather than as a broken instrument.
+  //
+  // Sampling the position instead is agnostic to whatever is driving it, which
+  // is the property that failed: Lenis, native scrolling when Lenis is
+  // disabled by prefers-reduced-motion, keyboard paging and anchor jumps all
+  // move window.scrollY, and all of them are caught by reading it.
+  let lastY = -1;
+  let rafId = 0;
 
-    const percent = ((window.scrollY / scrollable) * 100);
+  const sample = (): void => {
+    // Cheap early-out. This runs every frame, so it must do nothing at all in
+    // the common case where the page has not moved.
+    const y = window.scrollY;
+    if (y !== lastY) {
+      lastY = y;
 
-    for (const milestone of SCROLL_MILESTONES) {
-      if (percent >= milestone && !reached.has(milestone)) {
-        reached.add(milestone);
-        track({
-          type: "scroll",
-          path: context.path,
-          variant: context.variant,
-          magnet: context.magnet,
-          scrollDepth: milestone,
-        });
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      // A page shorter than the viewport cannot be scrolled, so depth carries
+      // no information. Recording 100% for it would inflate every engagement
+      // rate on the site.
+      if (scrollable > 0) {
+        const percent = (y / scrollable) * 100;
+
+        for (const milestone of SCROLL_MILESTONES) {
+          if (percent >= milestone && !reached.has(milestone)) {
+            reached.add(milestone);
+            track({
+              type: "scroll",
+              path: context.path,
+              variant: context.variant,
+              magnet: context.magnet,
+              scrollDepth: milestone,
+            });
+          }
+        }
       }
     }
+
+    // Every milestone is recorded, so there is nothing left to observe. Stops
+    // the loop rather than burning a frame callback for the rest of the visit.
+    if (reached.size === SCROLL_MILESTONES.length) return;
+
+    rafId = requestAnimationFrame(sample);
   };
 
   // Fires once per page load. If the reader comes back to the tab and leaves
@@ -186,15 +215,15 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
     onExit();
   };
 
-  window.addEventListener("scroll", onScroll, { passive: true });
   document.addEventListener("visibilitychange", onVisibility);
   window.addEventListener("pagehide", onExit);
 
-  // Some pages open already scrolled (an anchor link, a restored position).
-  onScroll();
+  // Starts immediately, which also covers pages that open already scrolled
+  // (an anchor link, a restored position).
+  sample();
 
   return () => {
-    window.removeEventListener("scroll", onScroll);
+    cancelAnimationFrame(rafId);
     document.removeEventListener("visibilitychange", onVisibility);
     window.removeEventListener("pagehide", onExit);
     // Client-side navigation away from the page is an exit too. Without this,
