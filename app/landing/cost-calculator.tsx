@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { track } from "../analytics/track";
+import { magnetForPath } from "../analytics/pages";
 
 // The whole point of this arm: give the visitor their number before asking for
 // anything. Two inputs, one figure, no email.
@@ -48,11 +49,16 @@ export function CostCalculator() {
   const trackFirstUse = () => {
     if (usedRef.current) return;
     usedRef.current = true;
+    // Magnet derived from the path, never hardcoded: this component renders on
+    // both landing pages, and a fixed value here reported every calculator
+    // interaction as belonging to the operations audit.
     track({
       type: "calculator_use",
       path: window.location.pathname,
+      // Safe to hardcode. The calculator only exists in the calculator arm, so
+      // any interaction with it is by definition from that arm.
       variant: "calculator",
-      magnet: "operations_audit",
+      magnet: magnetForPath(window.location.pathname),
     });
   };
 
