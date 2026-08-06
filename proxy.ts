@@ -12,6 +12,10 @@ import {
   isVisitorId,
 } from "./app/analytics/visitor";
 
+// Formerly middleware.ts. Next 16 renamed the convention to proxy.ts and
+// deprecated the old name; both still work today, but the deprecated path will
+// be removed and everything below is load-bearing for measurement.
+//
 // Two jobs, both of which have to happen before the first byte of HTML.
 //
 // 1. Assign an anonymous visitor id, on every content page. Minting it here
@@ -47,7 +51,13 @@ const LANDING_PATHS = new Set([
   "/ai-readiness-assessment",
 ]);
 
-export function middleware(request: NextRequest) {
+// Named `proxy`, not `middleware`. Next resolves this file as
+// `(isProxy ? mod.proxy : mod.middleware) || mod.default`, so in a file called
+// proxy.ts an export named `middleware` is simply not found and the whole
+// thing silently stops running. That would take the split test assignment and
+// the visitor cookie with it, and the pages would still render fine, so
+// nothing would look broken.
+export function proxy(request: NextRequest) {
   const headers = new Headers(request.headers);
 
   const existingVisitor = request.cookies.get(VISITOR_COOKIE)?.value;
