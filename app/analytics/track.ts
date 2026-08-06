@@ -121,14 +121,27 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
   // Visible time, not wall clock. A tab left open in the background overnight
   // is not eight hours of attention, and letting it count as such would make
   // any median it lands in meaningless.
-  let visibleSince = document.visibilityState === "visible" ? Date.now() : null;
-  let visibleMs = 0;
+  //
+  // Computed as elapsed-minus-hidden rather than by accumulating visible
+  // stretches, and that choice is about the failure mode. Accumulating visible
+  // time starts at zero and only grows when visibilitychange fires as
+  // expected; anywhere that event is unreliable the result is a confident
+  // zero. Zero is the worst possible wrong answer here, because the bounce
+  // test is "left almost immediately" and a zero silently classifies every
+  // visit as a bounce. Subtracting hidden time from elapsed instead degrades
+  // to a mild overestimate, which is visible as an implausible number rather
+  // than invisible as a plausible one.
+  const mountedAt = Date.now();
+  let hiddenMs = 0;
+  let hiddenSince =
+    document.visibilityState === "hidden" ? mountedAt : null;
   let exited = false;
 
-  const accumulate = (): void => {
-    if (visibleSince === null) return;
-    visibleMs += Date.now() - visibleSince;
-    visibleSince = null;
+  const visibleMsNow = (): number => {
+    const now = Date.now();
+    const hiddenTotal =
+      hiddenMs + (hiddenSince === null ? 0 : now - hiddenSince);
+    return Math.max(0, now - mountedAt - hiddenTotal);
   };
 
   // Sampled on requestAnimationFrame rather than driven by a scroll listener.
@@ -183,13 +196,15 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
     rafId = requestAnimationFrame(sample);
   };
 
-  // Fires once per page load. If the reader comes back to the tab and leaves
-  // again we do not send a second exit: for a bounce metric the first departure
-  // is the signal, and one row per load keeps the session maths simple.
+  // Sends the current dwell. Re-armable: a reader who switches tabs, comes
+  // back, and reads for another five minutes would otherwise be frozen at
+  // whatever the first tab-switch measured, which for this audience is most of
+  // them. Each departure emits a fresh row with a larger dwell, and the
+  // analysis takes max(dwell_ms) per visitor and path, so the extra rows cost
+  // nothing and the last one is the true total.
   const onExit = (): void => {
     if (exited) return;
     exited = true;
-    accumulate();
     send(
       [
         {
@@ -197,7 +212,7 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
           path: context.path,
           variant: context.variant,
           magnet: context.magnet,
-          dwellMs: visibleMs,
+          dwellMs: visibleMsNow(),
         },
       ],
       true,
@@ -206,9 +221,16 @@ export const startPageAnalytics = (context: PageContext): (() => void) => {
 
   const onVisibility = (): void => {
     if (document.visibilityState === "visible") {
-      visibleSince = Date.now();
+      if (hiddenSince !== null) {
+        hiddenMs += Date.now() - hiddenSince;
+        hiddenSince = null;
+      }
+      // Re-arm. They came back, so the visit is not over and the dwell we
+      // already sent is now an undercount.
+      exited = false;
       return;
     }
+    hiddenSince = Date.now();
     // hidden is the last moment a beacon is reliably allowed to fire, and on
     // mobile it is often the only one: pagehide is not guaranteed when an app
     // is backgrounded or the tab is discarded.
