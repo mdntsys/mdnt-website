@@ -31,6 +31,12 @@ export function SiteFooter() {
           <li>
             <a href="mailto:nic@midnitesystems.com">Contact</a>
           </li>
+          <li>
+            <Link href="/privacy">Privacy</Link>
+          </li>
+          <li>
+            <Link href="/terms">Terms</Link>
+          </li>
         </ul>
         <span className="footer-copy">© 2026 Midnite Systems</span>
       </div>

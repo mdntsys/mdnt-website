@@ -2655,6 +2655,61 @@ footer {
   max-width: 720px;
 }
 
+.legal-updated {
+  margin-top: 20px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.legal-doc {
+  max-width: 720px;
+  padding-bottom: 40px;
+}
+
+.legal-doc h2 {
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 40px 0 12px;
+  color: var(--text-primary);
+}
+
+.legal-doc h2:first-child {
+  margin-top: 0;
+}
+
+.legal-doc p,
+.legal-doc li {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.legal-doc p + p {
+  margin-top: 14px;
+}
+
+.legal-doc ul {
+  margin: 12px 0 0 1.2em;
+}
+
+.legal-doc li + li {
+  margin-top: 8px;
+}
+
+.legal-doc a {
+  color: var(--text-primary);
+}
+
+.legal-crosslink {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-hairline);
+}
+
 .back-link {
   display: inline-flex;
   align-items: center;

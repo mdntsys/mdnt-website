@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 const siteUrl = "https://midnitesystems.com";
 const lastUpdated = new Date("2026-07-14");
 const worksheetsUpdated = new Date("2026-08-01");
+const legalUpdated = new Date("2026-09-04");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -63,6 +64,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: worksheetsUpdated,
       changeFrequency: "yearly",
       priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/privacy`,
+      lastModified: legalUpdated,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${siteUrl}/terms`,
+      lastModified: legalUpdated,
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
   ];
 }
